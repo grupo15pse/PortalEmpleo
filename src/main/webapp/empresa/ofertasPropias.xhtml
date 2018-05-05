@@ -3,30 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
-        <ui:composition template="./../WEB-INF/candidatoTemplate.xhtml">
+        <ui:composition template="./../WEB-INF/empresaTemplate.xhtml">
 
             <ui:define name="content">
-                <h:form> 
-                    <p:dataScroller value="#{presentarFacadeREST.findOfertasByCandidato(loginBean.usuario.usuarioId)}" var="oferta" chunkSize="10">
-                        <f:facet name="header">
-                            Scroll Down to Load More Cars
-                        </f:facet>
+                <p:dataScroller value="#{usuarioFacadeREST.findOfertasByEmpresa(loginBean.usuario.usuarioId)}" var="oferta" chunkSize="10">
+                    <f:facet name="header">
+                        Scroll Down to Load More Cars
+                    </f:facet>
 
-                        <f:facet name="loader">
-                            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
-                        </f:facet>
-
-                        <h:panelGrid columns="2">
-
-                            <p:outputPanel>
-                                <p:panelGrid>
-
-                                    <p:row>
+                    <f:facet name="loader">
+                        <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                    </f:facet>
+                    
+                    <p:panelGrid>
+                        <p:row>
                                         <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                         <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
                                     </p:row>
@@ -55,12 +50,8 @@
                                         <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
                                         <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
                                     </p:row>
-
-                                </p:panelGrid>
-                            </p:outputPanel>
-                        </h:panelGrid>
-                    </p:dataScroller>
-                </h:form>
+                    </p:panelGrid>
+                </p:dataScroller>
             </ui:define>
 
         </ui:composition>

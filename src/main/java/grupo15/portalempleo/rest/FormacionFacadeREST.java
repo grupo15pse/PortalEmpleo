@@ -7,11 +7,13 @@ package grupo15.portalempleo.rest;
 
 import grupo15.portalempleo.entities.Formacion;
 import grupo15.portalempleo.entities.FormacionPK;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -108,6 +110,27 @@ public class FormacionFacadeREST extends AbstractFacade<Formacion> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
+    }
+    
+    @GET
+    @Path("findFormacionByCandidato")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Formacion> findFormacionByCandidato(@PathParam ("candidatoId") int candidatoId) {
+        Query q = em.createNamedQuery("Formacion.findByCandidato",Formacion.class);
+        
+        q.setParameter("candidato", candidatoId);
+        
+        List<Formacion> lista = new ArrayList<>();
+        
+        for(Object form: q.getResultList()) {
+            Formacion aux = (Formacion) form;
+            
+            lista.add(aux);
+            
+            System.out.println(aux.toString());
+        }
+        
+        return lista;
     }
 
     @Override

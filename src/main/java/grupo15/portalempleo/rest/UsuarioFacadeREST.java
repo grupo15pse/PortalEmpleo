@@ -5,12 +5,14 @@
  */
 package grupo15.portalempleo.rest;
 
+import grupo15.portalempleo.entities.Oferta;
 import grupo15.portalempleo.entities.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -83,6 +85,37 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
+    }
+    
+    @GET
+    @Path("findEmpresas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Usuario> findEmpresas() {
+        Query q = em.createNativeQuery("SELECT * FROM Usuario WHERE tipo='empresa'", Usuario.class);
+        
+        return q.getResultList();
+    }
+    
+    @GET
+    @Path("findOfertasByEmpresa")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Oferta> findOfertasByEmpresa(@PathParam ("empresaId") int empresa) {
+        Query q = em.createNamedQuery("Oferta.findByEmpresa");
+        
+        q.setParameter("empresa", empresa);
+        
+        return q.getResultList();
+    }
+    
+    @GET
+    @Path("findOfertasSize")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int findOfertasSize(@PathParam ("empresaId") int empresa) {
+        Query q = em.createNamedQuery("Oferta.findByEmpresa");
+        
+        q.setParameter("empresa", empresa);
+        
+        return q.getResultList().size();
     }
 
     @Override

@@ -26,11 +26,11 @@ import javax.persistence.Query;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-    private int usuarioId;
-    private String email, pass;
+    private Usuario usuario;
+    private String email, pass, rutaActual;
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     /**
      * Creates a new instance of LoginBean
@@ -50,16 +50,13 @@ public class LoginBean implements Serializable {
             return "loginError";
         } else {
             if (equals(pass, lista.get(0).getPass())) {
-                System.out.println("Aceptado");
+                usuario = lista.get(0);
                 switch (lista.get(0).getTipo()) {
                     case "Empresa":
-                        System.out.println("Empresa");
                         return "empresa/empresaIndex";
                     case "Administrador":
-                        System.out.println("Admin");
                         return "admin/adminIndex";
                     case "Candidato":
-                        System.out.println("Candidato");
                         return "candidato/candidatoIndex";
                     default:
                         return "loginError";
@@ -70,7 +67,7 @@ public class LoginBean implements Serializable {
             }
         }
     }
-    
+
     public String SHA1(String pass) {
         try {
             byte[] hash = null;
@@ -81,15 +78,19 @@ public class LoginBean implements Serializable {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100)
                         .substring(1, 3));
             }
-            
+
             return sb.toString();
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-
+    
+    public void cerrarSesion() {
+        System.out.println("CErrar sesión");
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -105,20 +106,30 @@ public class LoginBean implements Serializable {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    
-    public boolean equals(String uno,String dos) {
+
+    public boolean equals(String uno, String dos) {
         boolean iguales = true;
-        
-        for(int i = 0;i < uno.length();i++) {
+
+        for (int i = 0; i < uno.length(); i++) {
             char character = uno.charAt(i);
-            
-            if(character != dos.charAt(i)) {
+
+            if (character != dos.charAt(i)) {
                 iguales = false;
             }
         }
-        
+
         return iguales;
-        
     }
 
+    public String getRutaActual() {
+        return rutaActual;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

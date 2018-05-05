@@ -5,13 +5,16 @@
  */
 package grupo15.portalempleo.rest;
 
+import grupo15.portalempleo.entities.Oferta;
 import grupo15.portalempleo.entities.Presentar;
 import grupo15.portalempleo.entities.PresentarPK;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -110,9 +113,35 @@ public class PresentarFacadeREST extends AbstractFacade<Presentar> {
         return String.valueOf(super.count());
     }
 
+    @GET
+    @Path("findOfertasByCandidato")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Oferta> findOfertasByCandidato(@PathParam("candidato") int candidatoId) {
+        ArrayList<Oferta> resultado = new ArrayList<>();
+
+        Query presentarQuery = em.createNamedQuery("Presentar.findByCandidato", Presentar.class);
+
+        presentarQuery.setParameter("candidato", candidatoId);
+
+        List<Presentar> listaPresentar = presentarQuery.getResultList();
+
+        if (listaPresentar.size() > 0) {
+            for (Presentar presen : listaPresentar) {
+                Query ofertaQuery = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
+
+                ofertaQuery.setParameter("ofertaId", presen.getPresentarPK().getOferta());
+
+                resultado.add((Oferta) ofertaQuery.getSingleResult());
+            }
+            return resultado;
+        }
+
+        return null;
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

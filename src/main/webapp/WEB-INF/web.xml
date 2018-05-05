@@ -26,12 +26,8 @@
         <web-resource-collection>
             <web-resource-name>Páginas de administración</web-resource-name>
             <description/>
-            <url-pattern>/faces/admin/*</url-pattern>
+            <url-pattern>/faces/admin/adminIndex.xhtml</url-pattern>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>admin</role-name>
-        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -42,12 +38,8 @@
         <web-resource-collection>
             <web-resource-name>Páginas de candidatos</web-resource-name>
             <description/>
-            <url-pattern>/faces/candidato/*</url-pattern>
+            <url-pattern>/faces/candidato/candidatoIndex.xhtml</url-pattern>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>candidato</role-name>
-        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -58,12 +50,8 @@
         <web-resource-collection>
             <web-resource-name>Páginas de empresas</web-resource-name>
             <description/>
-            <url-pattern>/faces/empresa/*</url-pattern>
+            <url-pattern>/faces/empresa/empresaIndex.xhtml</url-pattern>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>empresa</role-name>
-        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
