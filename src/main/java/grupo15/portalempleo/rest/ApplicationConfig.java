@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(grupo15.portalempleo.json.UsuarioWriter.class);
         resources.add(grupo15.portalempleo.rest.FormacionFacadeREST.class);
         resources.add(grupo15.portalempleo.rest.GrupoFacadeREST.class);
         resources.add(grupo15.portalempleo.rest.OfertaFacadeREST.class);
