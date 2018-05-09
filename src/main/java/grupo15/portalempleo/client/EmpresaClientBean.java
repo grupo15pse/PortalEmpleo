@@ -6,6 +6,7 @@
 package grupo15.portalempleo.client;
 
 import grupo15.portalempleo.entities.Usuario;
+import grupo15.portalempleo.json.UsuarioWriter;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -14,7 +15,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -48,11 +51,7 @@ public class EmpresaClientBean {
         empresa.setFechaNacimiento(null);
         empresa.setTarjeta(null);
         empresa.setTelefono(null);
-        try{
-            
-        }catch (Exception e){
-            System.out.println("ERRRRRRRROR");
-        }
+        target.register(UsuarioWriter.class).request().post(Entity.entity( empresa, MediaType.APPLICATION_JSON));
         
         FacesContext context = FacesContext.getCurrentInstance();
          

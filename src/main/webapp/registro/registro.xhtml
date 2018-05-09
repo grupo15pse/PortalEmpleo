@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/indexTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="growl" sticky="true" autoUpdate="true" showDetail="true"/>
+                    <p:panel header="Correo electrónico">
+                        <p:panelGrid id="panel">
+                            <p:row>
+                                <p:column><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
+                                <p:column>
+                                    <p:inputText id="email" value="#{registro.email}" 
+                                                 required="true">
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            
+                            <p:row>
+                                <p:column><p:outputLabel for="nombre" value="Nombre completo: "/></p:column>
+                                <p:column>
+                                    <p:inputText id="nombre" value="#{registro.nombre}" 
+                                                 required="true">
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            
+                            
+
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:commandButton action="passes" value="Siguiente"
+                                                     update="panel"/>
+                                </p:column>
+
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
