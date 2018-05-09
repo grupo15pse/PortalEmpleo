@@ -5,10 +5,12 @@
  */
 package grupo15.portalempleo.client;
 
+import grupo15.portalempleo.jaas.AuthenticationUtils;
 import grupo15.portalempleo.managedbean.LoginBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -57,7 +59,11 @@ public class EmpresaBackingBean implements Serializable {
 
     public String getPass() {
         if(pass != null)
-            return SHA1(this.pass);
+            try {
+                return AuthenticationUtils.encodeSHA256(pass);
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(EmpresaBackingBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return null;
         
@@ -67,23 +73,5 @@ public class EmpresaBackingBean implements Serializable {
         this.pass = pass;
     }
     
-    public String SHA1(String pass) {
-        try {
-            byte[] hash = null;
-            MessageDigest md = MessageDigest.getInstance("SHA1");
-            byte[] array = md.digest(pass.getBytes());
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < array.length; ++i) {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100)
-                        .substring(1, 3));
-            }
-
-            return sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
     
 }

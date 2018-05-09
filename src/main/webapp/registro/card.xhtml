@@ -16,7 +16,8 @@
                         <p:panelGrid id="panel">
                             <p:row>
                                 <p:column colspan="2">
-                                    <h:outputText value="Hola #{registro.nombre}, por favor introduzca su número de tarjeta."/>
+                                    <h:outputText value="Hola #{registro.name}, por favor introduzca su número de tarjeta."/>
+                                    <h:outputText value="Hola #{registro.password}, por favor introduzca su información personal."/>
                                 </p:column>
                                 
                             </p:row>
@@ -37,7 +38,7 @@
 
                             <p:row>
                                 <p:column colspan="2">
-                                    <p:commandButton action="#{registro.registrarUsuario()}" value="Siguiente"
+                                    <p:commandButton action="#{registro.register}" value="Siguiente"
                                                      update="panel"/>
                                     <p:commandButton action="userinfo" value="Atrás"
                                                      immediate="true"/>

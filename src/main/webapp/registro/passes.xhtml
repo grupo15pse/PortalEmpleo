@@ -17,14 +17,14 @@
                         <p:panelGrid id="panel">
                             <p:row>
                                 <p:column colspan="2">
-                                    <h:outputText value="Hola #{registro.nombre}, por favor introduzca su contraseña."/>
+                                    <h:outputText value="Hola #{registro.name}, por favor introduzca su contraseña."/>
                                 </p:column>
                                 
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel for="pass" value="Contraseña: " /></p:column>
                                 <p:column>
-                                    <p:password id="pass" match="pass2" required="true" value="#{registro.pass}">
+                                    <p:password id="pass" match="pass2" required="true" value="#{registro.password}">
 
                                     </p:password>
                                 </p:column>
@@ -32,7 +32,7 @@
                             <p:row>
                                 <p:column><p:outputLabel for="pass2" value="Vuelva a introducir la contraseña: "/></p:column>
                                 <p:column>
-                                    <p:password id="pass2" required="true" value="#{registro.pass}">
+                                    <p:password id="pass2" required="true" value="#{registro.password}">
 
                                     </p:password>
                                 </p:column>

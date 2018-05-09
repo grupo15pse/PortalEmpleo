@@ -15,33 +15,33 @@
 
                     <p:row>
                         <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                        <p:column><h:outputText id="nombre" value="#{loginBean.usuario.nombre}"/></p:column>
+                        <p:column><h:outputText id="nombre" value="#{loginView.user.nombre}"/></p:column>
                     </p:row>
 
                     <p:row>
                         <p:column><p:outputLabel for="desc" value="Correo electrónico: "/></p:column>
-                        <p:column><h:outputText id="desc" value="#{loginBean.usuario.email}"/></p:column>
+                        <p:column><h:outputText id="desc" value="#{loginView.user}"/></p:column>
                     </p:row>
 
                     <p:row>
                         <p:column><p:outputLabel for="puesto" value="Fecha de nacimiento: "/></p:column>
-                        <p:column><h:outputText id="puesto" value="#{loginBean.usuario.fechaNacimiento}"/></p:column>
+                        <p:column><h:outputText id="puesto" value="#{loginView.user.fechaNacimiento}"/></p:column>
                     </p:row>
 
                     <p:row>
                         <p:column><p:outputLabel for="fecha" value="Teléfono: "/></p:column>
-                        <p:column><h:outputText id="fecha" value="#{loginBean.usuario.telefono}"/></p:column>
+                        <p:column><h:outputText id="fecha" value="#{loginView.user.telefono}"/></p:column>
                     </p:row>
 
                     <p:row>
                         <p:column><p:outputLabel for="req" value="Número de tarjeta: "/></p:column>
-                        <p:column><h:outputText id="req" value="#{loginBean.usuario.tarjeta}"/></p:column>
+                        <p:column><h:outputText id="req" value="#{loginView.user.tarjeta}"/></p:column>
                     </p:row>
 
                     <p:row>
                         <p:column><p:outputLabel value="Formación: "/></p:column>
                         <p:column>
-                            <c:forEach items="#{formacionFacadeREST.findFormacionByCandidato(loginBean.usuario.usuarioId)}" var="formacion">
+                            <c:forEach items="#{formacionFacadeREST.findFormacionByCandidato(loginView.user.usuarioId)}" var="formacion">
                                 <h:outputText value="#{formacion.formacionPK.formacion}, "></h:outputText>
                             </c:forEach>
                         </p:column>

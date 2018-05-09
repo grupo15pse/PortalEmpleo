@@ -4,6 +4,10 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -26,8 +30,12 @@
         <web-resource-collection>
             <web-resource-name>Páginas de administración</web-resource-name>
             <description/>
-            <url-pattern>/faces/admin/adminIndex.xhtml</url-pattern>
+            <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>admin</role-name>
+        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -40,6 +48,10 @@
             <description/>
             <url-pattern>/faces/candidato/candidatoIndex.xhtml</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>candidato</role-name>
+        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -52,6 +64,10 @@
             <description/>
             <url-pattern>/faces/empresa/empresaIndex.xhtml</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>empresa</role-name>
+        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -62,7 +78,7 @@
         <realm-name>PortalEmpleoRealm</realm-name>
         <form-login-config>
             <form-login-page>/faces/login.xhtml</form-login-page>
-            <form-error-page>/faces/loginError.xhtml</form-error-page>
+            <form-error-page>/faces/login.xhtml</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
