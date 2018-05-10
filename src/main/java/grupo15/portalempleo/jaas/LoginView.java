@@ -7,9 +7,9 @@ package grupo15.portalempleo.jaas;
 
 import grupo15.portalempleo.entities.Usuario;
 import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -36,12 +36,14 @@ public class LoginView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
+            System.out.println(password);
             request.login(email, password);
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Login incorrecto!", null));
-            return "login?faces-redirect=true";
+            return "login";
         }
         this.user = userEJB.findByEmail(request.getUserPrincipal().getName());
+        System.out.println(user.getPass());
         /*if (request.isUserInRole("administrador")) {
             return "/admin/adminIndex?faces-redirect=true";
         } else if (request.isUserInRole("empresa")) {
