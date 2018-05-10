@@ -52,13 +52,14 @@ public class UsuarioReader implements MessageBodyReader<Usuario> {
                             break;
                         case "fechaNacimiento":
                             Date fecha = null;
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                             {
-                                try {
-                                    fecha = formatter.parse(parser.getString());
-                                } catch (ParseException ex) {
-                                    Logger.getLogger(UsuarioReader.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                            try {
+                                System.out.println("Parser " + parser.getString());
+
+                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                                fecha = formatter.parse(parser.getString());
+                                System.out.println("Fecha a leer: " + fecha.toString());
+                            } catch (ParseException ex) {
+                                Logger.getLogger(UsuarioReader.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             user.setFechaNacimiento(fecha);
                             break;

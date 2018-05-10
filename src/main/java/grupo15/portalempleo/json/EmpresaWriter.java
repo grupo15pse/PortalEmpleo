@@ -48,8 +48,6 @@ public class EmpresaWriter implements MessageBodyWriter<Usuario> {
                 .write("pass", t.getPass())
                 .write("tipo", t.getTipo())
                 .writeEnd();
-
-        System.out.println("MensajeEnviado");
         gen.flush();
     }
 

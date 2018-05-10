@@ -58,24 +58,13 @@ public class Registro implements Serializable {
         grupo.setNombreGrupo("candidato");
 
         clientBean.addCandidato(user,grupo);
-        
-        /*FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        try {
-            System.out.println(password);
-            request.login(email, password);
-        } catch (ServletException e) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Login incorrecto!", null));
-            return "login";
-        }*/
-        //this.user = userEJB.findByEmail(request.getUserPrincipal().getName());
 
         return "goHome";
     }
 
     public String fechaHoy() {
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         return format.format(date);
     }
 

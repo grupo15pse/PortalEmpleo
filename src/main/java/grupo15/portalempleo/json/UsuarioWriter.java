@@ -42,24 +42,23 @@ public class UsuarioWriter implements MessageBodyWriter<Usuario> {
     public void writeTo(Usuario t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
 
         String fecha = null;
-        
+
         if (t.getFechaNacimiento() != null) {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             fecha = format.format(t.getFechaNacimiento());
+            System.out.println("Fecha a escribir " + fecha);
         }
 
         JsonGenerator gen = Json.createGenerator(entityStream);
         gen.writeStartObject()
+                .write("telefono", t.getTelefono())
+                .write("fechaNacimiento", fecha)
+                .write("tarjeta", t.getTarjeta())
                 .write("nombre", t.getNombre())
                 .write("email", t.getEmail())
                 .write("pass", t.getPass())
                 .write("tipo", t.getTipo())
-                .write("telefono", t.getTelefono())
-                .write("fechaNacimiento", fecha)
-                .write("tarjeta", t.getTarjeta())
                 .writeEnd();
-
-        System.out.println("MensajeEnviado");
         gen.flush();
     }
 
