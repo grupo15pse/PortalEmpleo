@@ -14,7 +14,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <flow-definition id="registro">
         
         <flow-return id="goHome">
-            <from-outcome>/candidato/candidatoIndex</from-outcome>
+            <from-outcome>/index</from-outcome>
         </flow-return>
     </flow-definition>
 </faces-config>

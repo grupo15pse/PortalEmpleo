@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
+
 @ManagedBean
 @SessionScoped
 public class LoginView implements Serializable {
@@ -44,6 +45,7 @@ public class LoginView implements Serializable {
         }
         this.user = userEJB.findByEmail(request.getUserPrincipal().getName());
         System.out.println(user.getPass());
+        System.out.println(user.getTipo());
         /*if (request.isUserInRole("administrador")) {
             return "/admin/adminIndex?faces-redirect=true";
         } else if (request.isUserInRole("empresa")) {
@@ -54,11 +56,11 @@ public class LoginView implements Serializable {
             return "login";
         }*/
         
-        if (user.getTipo().equals("administrador")) {
+        if (user.getTipo().equalsIgnoreCase("administrador")) {
             return "/admin/adminIndex?faces-redirect=true";
-        } else if (user.getTipo().equals("empresa")) {
+        } else if (user.getTipo().equalsIgnoreCase("empresa")) {
             return "/empresa/empresaIndex?faces-redirect=true";
-        }else if (user.getTipo().equals("candidato")) {
+        }else if (user.getTipo().equalsIgnoreCase("candidato")) {
             return "/candidato/candidatoIndex?faces-redirect=true";
         }else {
             return "login";
@@ -94,9 +96,6 @@ public class LoginView implements Serializable {
         this.password = password;
     }
 
-    public Usuario getAuthenticatedUser() {
-        return user;
-    }
 
     public Usuario getUser() {
         return user;

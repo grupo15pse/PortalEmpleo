@@ -5,12 +5,11 @@
  */
 package grupo15.portalempleo.json;
 
-import grupo15.portalempleo.entities.Usuario;
+import grupo15.portalempleo.entities.Grupo;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import javax.ws.rs.Produces;
@@ -26,41 +25,26 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
-public class UsuarioWriter implements MessageBodyWriter<Usuario> {
+public class GrupoWriter implements MessageBodyWriter<Grupo>{
 
     @Override
     public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-        return Usuario.class.isAssignableFrom(type);
+        return Grupo.class.isAssignableFrom(type);
     }
 
     @Override
-    public long getSize(Usuario t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+    public long getSize(Grupo t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
         return -1;
     }
 
     @Override
-    public void writeTo(Usuario t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
-
-        String fecha = null;
-        
-        if (t.getFechaNacimiento() != null) {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            fecha = format.format(t.getFechaNacimiento());
-        }
-
+    public void writeTo(Grupo t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
         JsonGenerator gen = Json.createGenerator(entityStream);
         gen.writeStartObject()
-                .write("nombre", t.getNombre())
                 .write("email", t.getEmail())
-                .write("pass", t.getPass())
-                .write("tipo", t.getTipo())
-                .write("telefono", t.getTelefono())
-                .write("fechaNacimiento", fecha)
-                .write("tarjeta", t.getTarjeta())
+                .write("nombreGrupo", t.getNombreGrupo())
                 .writeEnd();
-
-        System.out.println("MensajeEnviado");
         gen.flush();
     }
-
+    
 }

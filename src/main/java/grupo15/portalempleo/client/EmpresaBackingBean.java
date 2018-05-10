@@ -6,12 +6,10 @@
 package grupo15.portalempleo.client;
 
 import grupo15.portalempleo.jaas.AuthenticationUtils;
-import grupo15.portalempleo.managedbean.LoginBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

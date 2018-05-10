@@ -5,16 +5,17 @@
  */
 package grupo15.portalempleo.jaas;
 
+import grupo15.portalempleo.client.UsuarioClientBean;
+import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Usuario;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,49 +35,41 @@ public class Registro implements Serializable {
     private String tel;
     private Date fechaNac;
     private BigInteger numTarjeta;
-
+    
     @Inject
-    private UserEJB userEJB;
-
-    public void validatePassword(ComponentSystemEvent event) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIComponent components = event.getComponent();
-        UIInput uiInputPassword = (UIInput) components.findComponent("password");
-        String password = uiInputPassword.getLocalValue() == null ? "" : uiInputPassword.getLocalValue().toString();
-        UIInput uiInputConfirmPassword = (UIInput) components.findComponent("confirmpassword");
-        String confirmPassword = uiInputConfirmPassword.getLocalValue() == null ? ""
-                : uiInputConfirmPassword.getLocalValue().toString();
-// Que required="true" se encargue de esto.
-        if (password.isEmpty() || confirmPassword.isEmpty()) {
-            return;
-        }
-        if (!password.equals(confirmPassword)) {
-            FacesMessage msg = new FacesMessage("Las contraseñas no coinciden");
-            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            facesContext.addMessage(uiInputPassword.getClientId(), msg);
-            facesContext.renderResponse();
-        }
-        UIInput uiInputEmail = (UIInput) components.findComponent("email");
-        String email = uiInputEmail.getLocalValue() == null ? "" : uiInputEmail.getLocalValue().toString();
-        if (userEJB.findByEmail(email) != null) {
-            FacesMessage msg = new FacesMessage("Ya existe un usuario con ese email");
-            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            facesContext.addMessage(uiInputPassword.getClientId(), msg);
-            facesContext.renderResponse();
-        }
-    }
+    private UsuarioClientBean clientBean;
 
     public String register() {
         Usuario user = new Usuario();
         user.setNombre(name);
         user.setEmail(email);
-        user.setPass(password);
         user.setTipo("candidato");
         user.setFechaNacimiento(fechaNac);
         user.setTarjeta(numTarjeta);
         user.setTelefono(tel);
+        try {
+            user.setPass(AuthenticationUtils.encodeSHA256(password));
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Grupo grupo = new Grupo();
+        grupo.setEmail(email);
+        grupo.setNombreGrupo("candidato");
 
-        userEJB.createUser(user);
+        clientBean.addCandidato(user,grupo);
+        
+        /*FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            System.out.println(password);
+            request.login(email, password);
+        } catch (ServletException e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Login incorrecto!", null));
+            return "login";
+        }*/
+        //this.user = userEJB.findByEmail(request.getUserPrincipal().getName());
+
         return "goHome";
     }
 

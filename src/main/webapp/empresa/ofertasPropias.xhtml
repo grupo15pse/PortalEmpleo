@@ -11,7 +11,7 @@
         <ui:composition template="./../WEB-INF/empresaTemplate.xhtml">
 
             <ui:define name="content">
-                <p:dataScroller value="#{usuarioFacadeREST.findOfertasByEmpresa(loginBean.usuario.usuarioId)}" var="oferta" chunkSize="10">
+                <p:dataScroller value="#{ofertaClientBean.getOfertasPropias(loginView.user.usuarioId)}" var="oferta" chunkSize="10">
                     <f:facet name="header">
                         Scroll Down to Load More Cars
                     </f:facet>

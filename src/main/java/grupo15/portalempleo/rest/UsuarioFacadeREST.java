@@ -97,7 +97,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     }
     
     @GET
-    @Path("findOfertasByEmpresa")
+    @Path("findOfertasByEmpresa/{empresaId}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Oferta> findOfertasByEmpresa(@PathParam ("empresaId") int empresa) {
         Query q = em.createNamedQuery("Oferta.findByEmpresa");
