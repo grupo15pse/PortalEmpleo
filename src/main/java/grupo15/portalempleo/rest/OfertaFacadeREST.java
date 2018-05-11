@@ -6,6 +6,7 @@
 package grupo15.portalempleo.rest;
 
 import grupo15.portalempleo.entities.Oferta;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -41,6 +42,7 @@ public class OfertaFacadeREST extends AbstractFacade<Oferta> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Oferta entity) {
+        entity.setFechaIncorp(new Date());
         super.create(entity);
     }
 

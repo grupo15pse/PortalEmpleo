@@ -48,7 +48,7 @@ public class UsuarioClientBean {
     }
     
     public void addCandidato(Usuario candidato,Grupo grupo) {
-        System.out.println("HOALAAA" + candidato.getTelefono());
+        System.out.println("HOALAAA " + candidato.getTelefono());
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
         target.register(UsuarioWriter.class).request().post(Entity.entity(candidato, MediaType.APPLICATION_JSON));
         

@@ -5,19 +5,16 @@
  */
 package grupo15.portalempleo.client;
 
-import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Oferta;
-import grupo15.portalempleo.entities.Usuario;
-import grupo15.portalempleo.jaas.LoginView;
-import grupo15.portalempleo.json.EmpresaReader;
 import grupo15.portalempleo.json.EmpresaWriter;
 import grupo15.portalempleo.json.OfertaReader;
+import grupo15.portalempleo.json.OfertaWriter;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.ws.rs.client.Client;
@@ -37,9 +34,9 @@ public class OfertaClientBean {
     Client client;
     WebTarget target;
     
-    @Inject
-    private OfertaBakingBean obb;
 
+    @Inject
+    private OfertaBackingBean obb;
     /**
      * Creates a new instance of OfertaClientBean
      */
@@ -57,17 +54,20 @@ public class OfertaClientBean {
         client.close();
     }
     
-    public void addOferta() {
+    public void addOferta(int empresaId) {
+        
         Oferta oferta = new Oferta();
         oferta.setDescripcion(obb.getDescripcion());
-        oferta.setFechaIncorp(obb.getFechaIncorp());
-        oferta.setNombre(obb.getNombre());
+        oferta.setEmpresa(empresaId);
+        oferta.setFechaIncorp(new Date());
         oferta.setPuestoTrabajo(obb.getPuestoTrabajo());
         oferta.setReqMinimos(obb.getReqMinimos());
-        oferta.setEmpresa(obb.getEmpresa().getUsuarioId());
+        oferta.setNombre(obb.getNombre());
+        
+        System.out.println("FECHAAA: " + oferta.getFechaIncorp().toString());
         
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/oferta");
-        target.register(EmpresaWriter.class).request().post(Entity.entity(oferta, MediaType.APPLICATION_JSON));
+        target.register(OfertaWriter.class).request().post(Entity.entity(oferta, MediaType.APPLICATION_JSON));
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito", "La oferta " + oferta.getNombre() + " ha sido enviada."));

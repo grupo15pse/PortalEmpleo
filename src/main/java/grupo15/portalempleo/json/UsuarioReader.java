@@ -55,7 +55,7 @@ public class UsuarioReader implements MessageBodyReader<Usuario> {
                             try {
                                 System.out.println("Parser " + parser.getString());
 
-                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                 fecha = formatter.parse(parser.getString());
                                 System.out.println("Fecha a leer: " + fecha.toString());
                             } catch (ParseException ex) {

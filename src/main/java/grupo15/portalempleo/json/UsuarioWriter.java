@@ -44,7 +44,7 @@ public class UsuarioWriter implements MessageBodyWriter<Usuario> {
         String fecha = null;
 
         if (t.getFechaNacimiento() != null) {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             fecha = format.format(t.getFechaNacimiento());
             System.out.println("Fecha a escribir " + fecha);
         }

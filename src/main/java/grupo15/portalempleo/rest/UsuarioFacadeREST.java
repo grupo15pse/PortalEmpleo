@@ -43,8 +43,10 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Usuario entity) {
+        System.out.println("CREATE " + entity.getEmail());
         System.out.println("CREATE " + entity.getTelefono());
         System.out.println("CREATE " + entity.getTarjeta());
+        
         super.create(entity);
     }
 

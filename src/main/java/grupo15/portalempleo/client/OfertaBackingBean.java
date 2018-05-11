@@ -5,11 +5,13 @@
  */
 package grupo15.portalempleo.client;
 
+import grupo15.portalempleo.entities.Oferta;
 import grupo15.portalempleo.entities.Usuario;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,10 +19,14 @@ import javax.inject.Named;
  */
 @Named(value = "ofertaBackingBean")
 @SessionScoped
-public class OfertaBakingBean implements Serializable{
+public class OfertaBackingBean implements Serializable {
+
     private String descripcion,nombre,puestoTrabajo,reqMinimos;
-    private Date fechaIncorp;
-    private Usuario empresa;
+
+    
+    public OfertaBackingBean() {
+        
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -53,22 +59,5 @@ public class OfertaBakingBean implements Serializable{
     public void setReqMinimos(String reqMinimos) {
         this.reqMinimos = reqMinimos;
     }
-
-    public Date getFechaIncorp() {
-        return fechaIncorp;
-    }
-
-    public void setFechaIncorp(Date fechaIncorp) {
-        this.fechaIncorp = fechaIncorp;
-    }
-
-    public Usuario getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Usuario empresa) {
-        this.empresa = empresa;
-    }
-    
     
 }
