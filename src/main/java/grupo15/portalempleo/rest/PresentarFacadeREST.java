@@ -114,29 +114,20 @@ public class PresentarFacadeREST extends AbstractFacade<Presentar> {
     }
 
     @GET
-    @Path("findOfertasByCandidato")
+    @Path("findOfertasByCandidato/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Oferta> findOfertasByCandidato(@PathParam("candidato") int candidatoId) {
+    public List<Oferta> findOfertasByCandidato(@PathParam("id") int id) {
         ArrayList<Oferta> resultado = new ArrayList<>();
-
-        Query presentarQuery = em.createNamedQuery("Presentar.findByCandidato", Presentar.class);
-
-        presentarQuery.setParameter("candidato", candidatoId);
-
-        List<Presentar> listaPresentar = presentarQuery.getResultList();
-
-        if (listaPresentar.size() > 0) {
-            for (Presentar presen : listaPresentar) {
-                Query ofertaQuery = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
-
-                ofertaQuery.setParameter("ofertaId", presen.getPresentarPK().getOferta());
-
-                resultado.add((Oferta) ofertaQuery.getSingleResult());
-            }
-            return resultado;
+        Query presentarQuery = em.createNamedQuery("Presentar.findAll", Presentar.class);
+        List<Presentar> lista = presentarQuery.getResultList();
+   
+        for(Presentar pres: lista) {
+            Query ofertasQuery = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
+            ofertasQuery.setParameter("ofertaId", pres.getPresentarPK().getOferta());
+            resultado.add((Oferta) ofertasQuery.getSingleResult());
         }
 
-        return null;
+        return resultado;
     }
 
     @Override

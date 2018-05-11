@@ -9,7 +9,6 @@ import grupo15.portalempleo.entities.Formacion;
 import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Usuario;
 import grupo15.portalempleo.jaas.UserEJB;
-import grupo15.portalempleo.json.EmpresaWriter;
 import grupo15.portalempleo.json.GrupoWriter;
 import grupo15.portalempleo.json.UsuarioWriter;
 import javax.annotation.PostConstruct;

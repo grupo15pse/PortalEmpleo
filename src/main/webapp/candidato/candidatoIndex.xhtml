@@ -12,7 +12,65 @@
         <ui:composition template="./../WEB-INF/candidatoTemplate.xhtml">
 
             <ui:define name="content">
-                <ezcomp:listaOfertas/>
+                <h:form> 
+                    <p:dataScroller value="#{ofertaClientBean.ofertas}" var="oferta" chunkSize="10">
+                        <f:facet name="header">
+                            Baje para ver más ofertas
+                        </f:facet>
+
+                        <f:facet name="loader">
+                            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                        </f:facet>
+
+
+                        <p:outputPanel>
+                            <p:panelGrid>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                                    <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                                    <p:column rowspan="6">
+                                        <p:commandButton icon="ui-icon_trash"
+                                                         action="#{presentarClientBean.inscribirse(oferta,loginView.user)}"/>
+                                    </p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
+                                    <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
+                                    <p:column><h:outputText id="fecha" value="#{oferta.fechaIncorp}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
+                                    <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
+                                    <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
+                                    <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
+                                </p:row>
+
+
+
+                                <p:row>
+                                    
+                                </p:row>
+
+
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dataScroller>
+                </h:form>
             </ui:define>
 
         </ui:composition>

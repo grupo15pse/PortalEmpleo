@@ -12,9 +12,9 @@
 
             <ui:define name="content">
                 <h:form> 
-                    <p:dataScroller value="#{presentarFacadeREST.findOfertasByCandidato(loginView.user.usuarioId)}" var="oferta" chunkSize="10">
+                    <p:dataScroller value="#{presentarClientBean.getOfertasInscrito(loginView.user)}" var="oferta" chunkSize="10">
                         <f:facet name="header">
-                            Scroll Down to Load More Cars
+                            Baje para ver más ofertas
                         </f:facet>
 
                         <f:facet name="loader">
