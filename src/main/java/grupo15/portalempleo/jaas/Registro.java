@@ -6,6 +6,8 @@
 package grupo15.portalempleo.jaas;
 
 import grupo15.portalempleo.client.UsuarioClientBean;
+import grupo15.portalempleo.entities.Formacion;
+import grupo15.portalempleo.entities.FormacionPK;
 import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Usuario;
 import java.io.Serializable;
@@ -28,7 +30,7 @@ import javax.inject.Named;
 @FlowScoped("registro")
 public class Registro implements Serializable {
 
-    private String name;
+    private String name, formacion;
     private String email;
     private String password;
     private String confirmPassword;
@@ -38,6 +40,9 @@ public class Registro implements Serializable {
     
     @Inject
     private UsuarioClientBean clientBean;
+    
+    @Inject
+    private UserEJB userEJB;
 
     public String register() {
         Usuario user = new Usuario();
@@ -56,8 +61,14 @@ public class Registro implements Serializable {
         Grupo grupo = new Grupo();
         grupo.setEmail(email);
         grupo.setNombreGrupo("candidato");
+        
+        Formacion formacionAux = new Formacion();
+        FormacionPK fpk = new FormacionPK();
+        fpk.setFormacion(this.formacion);
+        formacionAux.setFormacionPK(fpk);
+        
 
-        clientBean.addCandidato(user,grupo);
+        clientBean.addCandidato(user,grupo, formacionAux);
 
         return "goHome";
     }
@@ -122,5 +133,13 @@ public class Registro implements Serializable {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getFormacion() {
+        return formacion;
+    }
+
+    public void setFormacion(String formacion) {
+        this.formacion = formacion;
     }
 }
