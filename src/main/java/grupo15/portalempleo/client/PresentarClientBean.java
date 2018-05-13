@@ -30,6 +30,8 @@ public class PresentarClientBean {
     
     Client client;
     WebTarget target;
+    
+    int sizeOfertasInscrito = 0;
 
     /**
      * Creates a new instance of PresentarClientBean
@@ -44,12 +46,30 @@ public class PresentarClientBean {
     }
     
     public Oferta[] getOfertasInscrito(Usuario user) {
-        return target
+        Oferta[] array = target
                 .register(OfertaReader.class)
                 .path("findOfertasByCandidato/{id}")
                 .resolveTemplate("id", user.getUsuarioId())
                 .request(MediaType.APPLICATION_JSON)
                 .get(Oferta[].class);
+        
+        sizeOfertasInscrito = array.length;
+        
+        return array;
+    }
+    
+    public boolean isInscrito(Usuario user,Oferta oferta) {
+        Oferta[] array = getOfertasInscrito(user);
+        boolean isInscrito = false;
+        
+        for(Oferta ofert: array) {
+            if(oferta.equals(ofert)) {
+                System.out.println("Inscrito");
+                isInscrito = true;
+            }
+        }
+        
+        return isInscrito;
     }
     
     @PostConstruct
@@ -61,6 +81,14 @@ public class PresentarClientBean {
     @PreDestroy
     public void destroy() {
         client.close();
+    }
+
+    public int getSizeOfertasInscrito() {
+        return sizeOfertasInscrito;
+    }
+
+    public void setSizeOfertasInscrito(int sizeOfertasInscrito) {
+        this.sizeOfertasInscrito = sizeOfertasInscrito;
     }
     
 }

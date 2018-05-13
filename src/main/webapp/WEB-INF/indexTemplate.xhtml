@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Job4Us - Portal de empleo</title>
     </h:head>
 
     <h:body>
@@ -21,9 +21,16 @@
 
             <p:layoutUnit position="west">
                 <h:form>
-                    <li><h:link outcome="/index" value="Ver ofertas"/></li>
-                    <li><h:link outcome="/login" value="Iniciar sesión"/></li>
-                    <li><h:commandLink action="registro" value="Registrarse"/></li>
+                    <p:menu>
+                        <p:submenu label="Ofertas">
+                            <p:menuitem value="Ver ofertas" outcome="/index"/>
+                        </p:submenu>
+                        
+                        <p:submenu label="Sesión">
+                            <p:menuitem value="Iniciar sesión" outcome="/login"/>
+                            <p:menuitem value="Registrarse" action="registro"/>
+                        </p:submenu>
+                    </p:menu>
                 </h:form>
             </p:layoutUnit>
 

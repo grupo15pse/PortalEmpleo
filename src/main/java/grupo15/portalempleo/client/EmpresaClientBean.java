@@ -32,7 +32,7 @@ public class EmpresaClientBean {
 
     Client client;
     WebTarget target;
-
+    
     @Inject
     private EmpresaBackingBean ebb;
 
@@ -73,10 +73,12 @@ public class EmpresaClientBean {
 
     public Usuario[] getEmpresas() {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
-        return target.register(EmpresaReader.class)
+        
+        Usuario[] array = target.register(EmpresaReader.class)
                 .path("findEmpresas")
                 .request(MediaType.APPLICATION_JSON)
-                .get(Usuario[].class);
+                .get(Usuario[].class);       
+        return array;
     }
 
 }

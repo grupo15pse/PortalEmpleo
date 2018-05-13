@@ -6,6 +6,7 @@
 package grupo15.portalempleo.jaas;
 
 import grupo15.portalempleo.entities.Usuario;
+import grupo15.portalempleo.rest.FormacionFacadeREST;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,6 +31,9 @@ public class LoginView implements Serializable {
 
     @Inject
     private UserEJB userEJB;
+    
+    @Inject
+    private FormacionFacadeREST formacionFacadeREST;
 
     private Usuario user;
 
@@ -78,6 +82,10 @@ public class LoginView implements Serializable {
             
         }
         return "/index?faces-redirect=true";
+    }
+    
+    public String getFormacion() {
+        return formacionFacadeREST.findFormacionByCandidato(user.getUsuarioId()).get(0).getFormacionPK().getFormacion();
     }
 
     public String getEmail() {

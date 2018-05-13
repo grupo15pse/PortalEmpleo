@@ -118,7 +118,8 @@ public class PresentarFacadeREST extends AbstractFacade<Presentar> {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Oferta> findOfertasByCandidato(@PathParam("id") int id) {
         ArrayList<Oferta> resultado = new ArrayList<>();
-        Query presentarQuery = em.createNamedQuery("Presentar.findAll", Presentar.class);
+        Query presentarQuery = em.createNamedQuery("Presentar.findByCandidato", Presentar.class);
+        presentarQuery.setParameter("candidato", id);
         List<Presentar> lista = presentarQuery.getResultList();
    
         for(Presentar pres: lista) {

@@ -41,9 +41,26 @@
                     <p:row>
                         <p:column><p:outputLabel value="Formación: "/></p:column>
                         <p:column>
-                            <c:forEach items="#{formacionFacadeREST.findFormacionByCandidato(loginView.user.usuarioId)}" var="formacion">
-                                <h:outputText value="#{formacion.formacionPK.formacion}, "></h:outputText>
-                            </c:forEach>
+                            <c:choose>
+                                <c:when test="#{loginView.formacion == 'Ninguna'}">
+                                    Ninguna
+                                </c:when>
+                                <c:when test="#{loginView.formacion == 'ESO'}">
+                                    Estudio de Secundaria Obligatorios
+                                </c:when>
+                                <c:when test="#{loginView.formacion == 'Medio'}">
+                                    Grado Medio
+                                </c:when>
+                                <c:when test="#{loginView.formacion == 'Bachiller'}">
+                                    Bachillerato
+                                </c:when>
+                                <c:when test="#{loginView.formacion == 'Superior'}">
+                                    Grado Superior
+                                </c:when>
+                                <c:when test="#{loginView.formacion == 'Carrera'}">
+                                    Carrera Universitaria
+                                </c:when>
+                            </c:choose>
                         </p:column>
                     </p:row>
 

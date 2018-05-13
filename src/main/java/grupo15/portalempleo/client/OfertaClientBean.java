@@ -33,7 +33,6 @@ public class OfertaClientBean {
     
     Client client;
     WebTarget target;
-    
 
     @Inject
     private OfertaBackingBean obb;
@@ -75,18 +74,21 @@ public class OfertaClientBean {
     
     public Oferta[] getOfertas() {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/oferta");
-        return target.register(OfertaReader.class)
+        
+        Oferta[] array = target.register(OfertaReader.class)
                 .request(MediaType.APPLICATION_JSON)
-                .get(Oferta[].class);
+                .get(Oferta[].class);        
+        return array;
     }
     
     public Oferta[] getOfertasPropias(int empresaId) {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
-        return target.register(OfertaReader.class)
+        
+        Oferta[] array = target.register(OfertaReader.class)
                 .path("findOfertasByEmpresa/{empresaId}")
                 .resolveTemplate("empresaId", empresaId)
                 .request(MediaType.APPLICATION_JSON)
-                .get(Oferta[].class);
+                .get(Oferta[].class);        
+        return array;
     }
-    
 }

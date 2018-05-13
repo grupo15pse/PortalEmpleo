@@ -4,38 +4,62 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../WEB-INF/adminTemplate.xhtml">
 
             <ui:define name="content">
-                <c:forEach items="#{empresaClientBean.empresas}" var="empresa">
-                    <p:panelGrid>
-                        <p:row>
-                            <p:column><p:outputLabel value="ID: "/></p:column>
-                            <p:column><h:outputText value="#{empresa.usuarioId}"/></p:column>
-                            
-                        </p:row>
-                        <p:row>
-                            <p:column><p:outputLabel value="Nombre: "/></p:column>
-                            <p:column><h:outputText value="#{empresa.nombre}"/></p:column>
-                            
-                        </p:row>
-                        <p:row>
-                            <p:column><p:outputLabel value="Correo electrónico: "/></p:column>
-                            <p:column><h:outputText value="#{empresa.email}"/></p:column>
-                            
-                        </p:row>
-                        <p:row>
-                            <p:column><p:outputLabel value="Número de ofertas: "/></p:column>
-                            <p:column><h:outputText value="#{usuarioFacadeREST.findOfertasSize(empresa.usuarioId)}"/></p:column>
-                            
-                        </p:row>
-                        
-                    </p:panelGrid>
-                </c:forEach>
+
+                <c:choose>
+                    <c:when test="#{empty empresaClientBean.empresas}">
+                        <p:panel header="Empresas disponibles">
+                            <h:outputText value="No hay empresas disponibles en este momento. Puede añadir empresas en el apartado Crear Empresa"/>
+                        </p:panel>
+                    </c:when>
+                    <c:otherwise>
+                        <p:dataScroller value="#{empresaClientBean.empresas}" var="empresa" chunkSize="10">
+                            <f:facet name="header">
+                                Baje para ver más empresas
+                            </f:facet>
+
+                            <f:facet name="loader">
+                                <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                            </f:facet>
+
+                            <h:panelGrid columns="2" style="width:100%">
+
+                                <p:outputPanel>
+                                    <p:panelGrid>
+
+                                        <p:row>
+                                            <p:column><p:outputLabel value="ID: "/></p:column>
+                                            <p:column><h:outputText value="#{empresa.usuarioId}"/></p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel value="Nombre: "/></p:column>
+                                            <p:column><h:outputText value="#{empresa.nombre}"/></p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel value="Correo electrónico: "/></p:column>
+                                            <p:column><h:outputText value="#{empresa.email}"/></p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel value="Número de ofertas: "/></p:column>
+                                            <p:column><h:outputText value="#{usuarioFacadeREST.findOfertasSize(empresa.usuarioId)}"/></p:column>
+
+                                        </p:row>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </c:otherwise>
+                </c:choose>
             </ui:define>
 
         </ui:composition>
