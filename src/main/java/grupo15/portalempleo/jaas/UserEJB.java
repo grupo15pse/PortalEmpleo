@@ -5,6 +5,7 @@
  */
 package grupo15.portalempleo.jaas;
 
+import grupo15.portalempleo.entities.Formacion;
 import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Usuario;
 import java.io.UnsupportedEncodingException;
@@ -39,6 +40,13 @@ public class UserEJB {
         em.persist(group);
         return user;
     }
+    
+    public void updateUsuario(Usuario usuario) {
+        em.merge(usuario);
+    }
+    public void updateGrupo(Grupo grupo) {
+        em.merge(grupo);
+    }
 
     public Usuario findByEmail(String email) {
         TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByEmail", Usuario.class);
@@ -60,5 +68,14 @@ public class UserEJB {
         } catch (Exception e) {
         }
         return user;
+    }
+    
+    public String getFormacionByUsuario(int userId) {
+        TypedQuery<Formacion> query = em.createNamedQuery("Formacion.findByCandidato", Formacion.class);
+        
+        query.setParameter("candidato", userId);
+        
+        Formacion formacion = query.getSingleResult();
+        return formacion.getFormacionPK().getFormacion();
     }
 }

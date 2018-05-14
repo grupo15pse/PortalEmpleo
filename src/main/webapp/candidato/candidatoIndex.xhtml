@@ -12,9 +12,8 @@
         <ui:composition template="./../WEB-INF/candidatoTemplate.xhtml">
 
             <ui:define name="content">
-
-
                 <h:form> 
+                    <p:growl autoUpdate="true" showDetail="true"/>
                     <c:choose>
                         <c:when test="#{empty ofertaClientBean.ofertas}">
                             <p:panel header="Ofertas disponibles">

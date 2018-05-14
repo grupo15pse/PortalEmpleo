@@ -5,9 +5,15 @@
  */
 package grupo15.portalempleo.jaas;
 
+import grupo15.portalempleo.client.EditarPerfilBakingBean;
+import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Usuario;
 import grupo15.portalempleo.rest.FormacionFacadeREST;
+import grupo15.portalempleo.rest.GrupoFacadeREST;
+import grupo15.portalempleo.rest.UsuarioFacadeREST;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -34,6 +40,9 @@ public class LoginView implements Serializable {
     
     @Inject
     private FormacionFacadeREST formacionFacadeREST;
+    
+    @Inject
+    private EditarPerfilBakingBean epbb;
 
     private Usuario user;
 
@@ -41,24 +50,12 @@ public class LoginView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-            System.out.println(password);
             request.login(email, password);
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Login incorrecto!", null));
             return "login";
         }
         this.user = userEJB.findByEmail(request.getUserPrincipal().getName());
-        System.out.println(user.getPass());
-        System.out.println(user.getTipo());
-        /*if (request.isUserInRole("administrador")) {
-            return "/admin/adminIndex?faces-redirect=true";
-        } else if (request.isUserInRole("empresa")) {
-            return "/empresa/empresaIndex?faces-redirect=true";
-        }else if (request.isUserInRole("candidato")) {
-            return "/candidato/candidatoIndex?faces-redirect=true";
-        }else {
-            return "login";
-        }*/
         
         if (user.getTipo().equalsIgnoreCase("administrador")) {
             return "/admin/adminIndex?faces-redirect=true";
@@ -84,8 +81,38 @@ public class LoginView implements Serializable {
         return "/index?faces-redirect=true";
     }
     
+    public void updateCandidato() {
+        
+        if(epbb.getFecha() != null) {
+            user.setFechaNacimiento(epbb.getFecha());
+        }
+        
+        if(epbb.getNombre() != null) {
+            user.setNombre(epbb.getNombre());
+        }
+        
+        if(epbb.getTarjeta()!= null) {
+            user.setTarjeta(epbb.getTarjeta());
+        }
+        
+        if(epbb.getTel() == 0) {
+            user.setTelefono(Integer.toString(epbb.getTel()));
+        }
+
+        userEJB.updateUsuario(user);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito",  "El candidato " + user.getNombre() + " ha sido actualizado."));
+    }
+    
     public String getFormacion() {
         return formacionFacadeREST.findFormacionByCandidato(user.getUsuarioId()).get(0).getFormacionPK().getFormacion();
+    }
+    
+    public String fechaHoy() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(date);
     }
 
     public String getEmail() {

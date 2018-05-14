@@ -15,6 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -32,7 +34,7 @@ public class UsuarioClientBean {
 
     Client client;
     WebTarget target;
-    
+
     @Inject
     private UserEJB userEJB;
     /**
@@ -40,29 +42,32 @@ public class UsuarioClientBean {
      */
     public UsuarioClientBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         client = ClientBuilder.newClient();
-        
+
     }
 
     @PreDestroy
     public void destroy() {
         client.close();
     }
-    
+
     public void addCandidato(Usuario candidato,Grupo grupo, Formacion formacion) {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
         target.register(UsuarioWriter.class).request().post(Entity.entity(candidato, MediaType.APPLICATION_JSON));
-        
+
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/grupo");
         target.register(GrupoWriter.class).request().post(Entity.entity(grupo, MediaType.APPLICATION_JSON));
-        
+
         formacion.getFormacionPK().setCandidato(userEJB.findByEmail(candidato.getEmail()).getUsuarioId());
-        
+
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/formacion");
         target.request().post(Entity.entity(formacion, MediaType.APPLICATION_JSON));
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito",  "El candidato " + candidato.getNombre() + " ha sido insertado correctamente."));
     }
     
 }
