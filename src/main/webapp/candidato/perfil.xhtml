@@ -60,6 +60,9 @@
                                 <c:when test="#{loginView.formacion == 'Carrera'}">
                                     Carrera Universitaria
                                 </c:when>
+                                <c:otherwise>
+                                    Error
+                                </c:otherwise>
                             </c:choose>
                         </p:column>
                     </p:row>
@@ -67,6 +70,8 @@
                     <p:row>
                         <p:column colspan="2">
                             <p:button value="Editar perfil" outcome="editarPerfil"/>
+                            <p:commandButton value="Darse de baja en Job4Us"
+                                             action="#{loginView.deleteUsuario()}"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>

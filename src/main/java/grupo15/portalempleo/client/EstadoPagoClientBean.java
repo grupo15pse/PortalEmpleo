@@ -44,8 +44,10 @@ public class EstadoPagoClientBean {
         client.close();
     }
 
-    public boolean comprobarPago(Usuario user) {        
-        if (user.getTarjeta().intValue() % 2 == 0) {
+    public boolean comprobarPago(Usuario user) {   
+        System.out.println(user.getTarjeta().longValue());
+        
+        if (user.getTarjeta().longValue() % 2 == 0) {
             target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios/grupo15si@uva.es");
         } else {
             target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios/grupo15no@uva.es");

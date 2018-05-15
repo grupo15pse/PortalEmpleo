@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/empresaTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:metadata>
+                    <f:viewParam name="oferta" value="#{ofertaBackingBean.verCandidatos}" />
+                </f:metadata>
+                
+                <c:choose>
+                    <c:when test="#{empty ofertaClientBean.usuariosByOferta}">
+                        <p:panel header="Ofertas disponibles">
+                            <h:outputText value="No hay ofertas disponibles en este momento. Puede crear ofertas en el apartado Crear Oferta."
+                                          />
+                        </p:panel>
+                    </c:when>
+                    <c:otherwise>
+                        <p:dataScroller value="#{ofertaClientBean.usuariosByOferta}"
+                                        var="usuario" chunkSize="10">
+                            <f:facet name="header">
+                                Baje para ver más candidatos
+                            </f:facet>
+
+                            <f:facet name="loader">
+                                <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                            </f:facet>
+
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                                    <p:column><h:outputText id="nombre" value="#{usuario.nombre}"/></p:column>
+                                    <p:column rowspan="6">
+                                        <p:button value="Contactar"/>
+                                    </p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
+                                    <p:column><h:outputText id="email" value="#{usuario.email}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
+                                    <p:column><h:outputText id="fecha" value="#{usuario.fechaNacimiento}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="tel" value="Teléfono: "/></p:column>
+                                    <p:column><h:outputText id="tel" value="#{usuario.telefono}"/></p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
+                                    <p:column><h:outputText id="tarjeta" value="#{usuario.tarjeta}"/></p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:dataScroller>
+                    </c:otherwise>
+                </c:choose>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

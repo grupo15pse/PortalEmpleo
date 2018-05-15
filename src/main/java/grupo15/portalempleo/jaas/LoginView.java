@@ -6,11 +6,9 @@
 package grupo15.portalempleo.jaas;
 
 import grupo15.portalempleo.client.EditarPerfilBakingBean;
-import grupo15.portalempleo.entities.Grupo;
+import grupo15.portalempleo.entities.Formacion;
 import grupo15.portalempleo.entities.Usuario;
 import grupo15.portalempleo.rest.FormacionFacadeREST;
-import grupo15.portalempleo.rest.GrupoFacadeREST;
-import grupo15.portalempleo.rest.UsuarioFacadeREST;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -105,8 +103,14 @@ public class LoginView implements Serializable {
         context.addMessage(null, new FacesMessage("Éxito",  "El candidato " + user.getNombre() + " ha sido actualizado."));
     }
     
+    public String deleteUsuario() {
+        userEJB.deleteUsuario(user);
+        return logout();
+    }
+    
     public String getFormacion() {
-        return formacionFacadeREST.findFormacionByCandidato(user.getUsuarioId()).get(0).getFormacionPK().getFormacion();
+        Formacion formacion = formacionFacadeREST.findFormacionByCandidato(user.getUsuarioId()).get(0);
+        return formacion.getFormacionPK().getFormacion();
     }
     
     public String fechaHoy() {

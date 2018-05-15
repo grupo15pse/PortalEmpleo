@@ -6,6 +6,7 @@
 package grupo15.portalempleo.client;
 
 import grupo15.portalempleo.entities.Oferta;
+import grupo15.portalempleo.entities.Usuario;
 import grupo15.portalempleo.jaas.UserEJB;
 import grupo15.portalempleo.json.EmpresaWriter;
 import grupo15.portalempleo.json.OfertaReader;
@@ -94,6 +95,20 @@ public class OfertaClientBean {
         return arrayList;
     }
     
+    public void deleteOferta(Oferta oferta) {
+        String nombreOferta = oferta.getNombre();
+
+        target = client.target("http://localhost:8080/PortalEmpleo/webresources/oferta");
+        target.path("{id}")
+                .resolveTemplate("id", oferta.getOfertaId())
+                .request()
+                .delete();
+        
+        userEJB.borrarInscritos(oferta.getOfertaId());
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito", "La oferta " + nombreOferta + " ha sido eliminada."));
+    }
+    
     public Oferta[] getOfertasPropias(int empresaId) {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
         
@@ -103,5 +118,9 @@ public class OfertaClientBean {
                 .request(MediaType.APPLICATION_JSON)
                 .get(Oferta[].class);        
         return array;
+    }
+    
+    public List<Usuario> getUsuariosByOferta() {
+        return userEJB.findUsuariosByOferta(obb.getVerCandidatos());
     }
 }

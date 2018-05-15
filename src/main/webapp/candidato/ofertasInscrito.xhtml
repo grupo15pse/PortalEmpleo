@@ -37,43 +37,48 @@
                                             <p:row>
                                                 <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                                 <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                                            </p:row>
+                                                <p:column rowspan="6">
+                                                    <p:commandButton value="Darse de baja"
+                                                                     action="#{presentarClientBean.borrarInscripciones(loginView.user, oferta)}"/>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
-                                                <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
-                                            </p:row>
+                                            </p:column>
+                                        </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                                                <p:column><h:outputText id="fecha" value="#{oferta.fechaIncorp}"/></p:column>
-                                            </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
+                                            <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                                        </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
-                                                <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
-                                            </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
+                                            <p:column><h:outputText id="fecha" value="#{oferta.fechaIncorp}"/></p:column>
+                                        </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
-                                                <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
-                                            </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
+                                            <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
+                                        </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
-                                                <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
-                                            </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
+                                            <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
+                                        </p:row>
 
-                                        </p:panelGrid>
-                                    </p:outputPanel>
-                                </h:panelGrid>
-                            </p:dataScroller>
-                        </c:otherwise>
-                    </c:choose>
-                </h:form>
-            </ui:define>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
+                                            <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
+                                        </p:row>
 
-        </ui:composition>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </c:otherwise>
+                </c:choose>
+            </h:form>
+        </ui:define>
 
-    </body>
+    </ui:composition>
+
+</body>
 </html>

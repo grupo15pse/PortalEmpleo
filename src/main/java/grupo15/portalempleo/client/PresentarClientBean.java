@@ -91,6 +91,12 @@ public class PresentarClientBean {
 
         return array;
     }
+    
+    public void borrarInscripciones(Usuario user, Oferta oferta) {
+        userEJB.borrarInscrito(user.getUsuarioId(),oferta.getOfertaId());
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Error", "Ya no estás inscrito en la oferta " + oferta.getNombre()));
+    } 
 
     public boolean isInscrito(Usuario user, Oferta oferta) {
         Oferta[] array = getOfertasInscrito(user);
@@ -154,34 +160,6 @@ public class PresentarClientBean {
                 }
             default:
                 break;
-        }
-
-        if (formacionMinima.equalsIgnoreCase("Ninguna")) {
-            return 1;
-        } else if (formacionMinima.equalsIgnoreCase("ESO")) {
-            if (formacionUsuario.equalsIgnoreCase("Ninguna")) {
-                return -1;
-            } else {
-                return 1;
-            }
-        } else if (formacionMinima.equalsIgnoreCase("Medio")) {
-            if (formacionUsuario.equalsIgnoreCase("Ninguna") || formacionUsuario.equalsIgnoreCase("ESO")) {
-                return -1;
-            } else {
-                return 1;
-            }
-        } else if (formacionMinima.equalsIgnoreCase("Superior")) {
-            if (formacionUsuario.equalsIgnoreCase("Ninguna") || formacionUsuario.equalsIgnoreCase("ESO") || formacionUsuario.equalsIgnoreCase("Medio")) {
-                return -1;
-            } else {
-                return 1;
-            }
-        } else if (formacionMinima.equalsIgnoreCase("Carrera")) {
-            if (formacionUsuario.equalsIgnoreCase("Ninguna") || formacionUsuario.equalsIgnoreCase("ESO") || formacionUsuario.equalsIgnoreCase("Medio") || formacionUsuario.equalsIgnoreCase("Superior")) {
-                return -1;
-            } else {
-                return 1;
-            }
         }
 
         return 0;

@@ -34,6 +34,22 @@
                                 <p:row>
                                     <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                     <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                                    <p:column rowspan="6">
+                                        <p:link outcome="candidatos" value="Ver candidatos">
+                                            <f:param name="oferta" value="#{oferta.ofertaId}"/>
+                                        </p:link>
+                                        
+                                        <p:commandButton action="#{ofertaClientBean.deleteOferta(oferta)}"
+                                                                     icon="ui-icon-trash"
+                                                                     >
+                                                        <p:confirm header="Confirmación" message="¿Estás seguro de querer borrar la empresa #{oferta.nombre}?" icon="ui-icon-alert" />
+                                                    </p:commandButton>
+
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                    </p:confirmDialog>
+                                    </p:column>
                                 </p:row>
 
                                 <p:row>
