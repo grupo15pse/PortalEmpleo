@@ -6,10 +6,13 @@
 package grupo15.portalempleo.client;
 
 import grupo15.portalempleo.entities.Oferta;
+import grupo15.portalempleo.jaas.UserEJB;
 import grupo15.portalempleo.json.EmpresaWriter;
 import grupo15.portalempleo.json.OfertaReader;
 import grupo15.portalempleo.json.OfertaWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
@@ -36,6 +39,9 @@ public class OfertaClientBean {
 
     @Inject
     private OfertaBackingBean obb;
+    
+    @Inject
+    private UserEJB userEJB;
     /**
      * Creates a new instance of OfertaClientBean
      */
@@ -63,8 +69,6 @@ public class OfertaClientBean {
         oferta.setReqMinimos(obb.getReqMinimos());
         oferta.setNombre(obb.getNombre());
         
-        System.out.println("FECHAAA: " + oferta.getFechaIncorp().toString());
-        
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/oferta");
         target.register(OfertaWriter.class).request().post(Entity.entity(oferta, MediaType.APPLICATION_JSON));
 
@@ -72,13 +76,22 @@ public class OfertaClientBean {
         context.addMessage(null, new FacesMessage("Éxito", "La oferta " + oferta.getNombre() + " ha sido enviada."));
     }
     
-    public Oferta[] getOfertas() {
+    public List<Oferta> getOfertas() {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/oferta");
         
         Oferta[] array = target.register(OfertaReader.class)
                 .request(MediaType.APPLICATION_JSON)
-                .get(Oferta[].class);        
-        return array;
+                .get(Oferta[].class);   
+        
+        ArrayList<Oferta> arrayList = new ArrayList<>();
+        
+        for(Oferta ofer: array) {
+            if(userEJB.findById(ofer.getEmpresa()) != null) {
+                arrayList.add(ofer);
+            }
+        }
+        
+        return arrayList;
     }
     
     public Oferta[] getOfertasPropias(int empresaId) {

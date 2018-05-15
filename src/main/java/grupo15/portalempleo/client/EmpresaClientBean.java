@@ -7,6 +7,7 @@ package grupo15.portalempleo.client;
 
 import grupo15.portalempleo.entities.Grupo;
 import grupo15.portalempleo.entities.Usuario;
+import grupo15.portalempleo.jaas.UserEJB;
 import grupo15.portalempleo.json.EmpresaReader;
 import grupo15.portalempleo.json.EmpresaWriter;
 import javax.annotation.PostConstruct;
@@ -32,9 +33,15 @@ public class EmpresaClientBean {
 
     Client client;
     WebTarget target;
-    
+
     @Inject
     private EmpresaBackingBean ebb;
+
+    @Inject
+    private EditarEmpresaBakingBean eebb;
+
+    @Inject
+    private UserEJB userEJB;
 
     public EmpresaClientBean() {
     }
@@ -42,7 +49,7 @@ public class EmpresaClientBean {
     @PostConstruct
     public void init() {
         client = ClientBuilder.newClient();
-        
+
     }
 
     @PreDestroy
@@ -56,14 +63,14 @@ public class EmpresaClientBean {
         empresa.setNombre(ebb.getNombre());
         empresa.setEmail(ebb.getEmail());
         empresa.setPass(ebb.getPass());
-        
+
         Grupo grupo = new Grupo();
         grupo.setEmail(ebb.getEmail());
         grupo.setNombreGrupo("empresa");
-        
+
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
         target.register(EmpresaWriter.class).request().post(Entity.entity(empresa, MediaType.APPLICATION_JSON));
-        
+
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/grupo");
         target.register(EmpresaWriter.class).request().post(Entity.entity(grupo, MediaType.APPLICATION_JSON));
 
@@ -73,12 +80,48 @@ public class EmpresaClientBean {
 
     public Usuario[] getEmpresas() {
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
-        
+
         Usuario[] array = target.register(EmpresaReader.class)
                 .path("findEmpresas")
                 .request(MediaType.APPLICATION_JSON)
-                .get(Usuario[].class);       
+                .get(Usuario[].class);
         return array;
     }
 
+    public Usuario getEmpresa(int empresaId) {
+        target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
+
+        Usuario empresa = target.register(EmpresaReader.class)
+                .path("{id}")
+                .resolveTemplate("id", empresaId)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Usuario.class);
+        return empresa;
+    }
+
+    public void deleteEmpresa(Usuario empresa) {
+        String nombreEmpresa = empresa.getNombre();
+
+        target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
+        target.path("{id}")
+                .resolveTemplate("id", empresa.getUsuarioId())
+                .request()
+                .delete();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito", "La empresa " + nombreEmpresa + " ha sido eliminada."));
+    }
+
+    public void updateEmpresa() {
+
+        Usuario empresa = userEJB.findById(eebb.getEmpresaEditar());
+
+        if (eebb.getNombre() != null) {
+            empresa.setNombre(eebb.getNombre());
+
+            userEJB.updateUsuario(empresa);
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Éxito", "La empresa " + empresa.getNombre() + " ha sido actualizada."));
+        }
+    }
 }

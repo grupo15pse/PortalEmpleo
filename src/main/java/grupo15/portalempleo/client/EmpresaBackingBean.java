@@ -24,6 +24,7 @@ public class EmpresaBackingBean implements Serializable {
     
     private int empresaId;
     private String email,nombre,pass;
+    
 
     /**
      * Creates a new instance of EmpresaBackingBean
@@ -62,14 +63,10 @@ public class EmpresaBackingBean implements Serializable {
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(EmpresaBackingBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return null;
-        
     }
 
     public void setPass(String pass) {
         this.pass = pass;
     }
-    
-    
 }
