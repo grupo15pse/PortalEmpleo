@@ -42,6 +42,9 @@ public class OfertaClientBean {
     private OfertaBackingBean obb;
     
     @Inject
+    private EditarOfertaBackingBean eobb;
+    
+    @Inject
     private UserEJB userEJB;
     /**
      * Creates a new instance of OfertaClientBean
@@ -122,5 +125,30 @@ public class OfertaClientBean {
     
     public List<Usuario> getUsuariosByOferta() {
         return userEJB.findUsuariosByOferta(obb.getVerCandidatos());
+    }
+    
+    public void updateOferta() {
+        Oferta oferta = userEJB.findOferta(eobb.getOfertaEditar());
+        
+        if(eobb.getDescripcion() != null) {
+            oferta.setDescripcion(eobb.getDescripcion());
+        }
+        
+        if(eobb.getNombre() != null) {
+            oferta.setNombre(eobb.getNombre());
+        }
+        
+        if(eobb.getPuestoTrabajo() != null) {
+            oferta.setPuestoTrabajo(eobb.getPuestoTrabajo());
+        }
+        
+        if(eobb.getReqMinimos() != null) {
+            oferta.setReqMinimos(eobb.getReqMinimos());
+        }
+
+        userEJB.updateOferta(oferta);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito",  "La oferta " + oferta.getNombre() + " ha sido actualizada."));
     }
 }

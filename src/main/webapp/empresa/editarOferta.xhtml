@@ -2,17 +2,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./../WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                <h:form>
-                    <p:panel header="Introduzca la información sobre la oferta">
+                <f:metadata>
+                    <f:viewParam name="oferta" value="#{editarOfertaBackingBean.ofertaEditar}"/>
+                </f:metadata>
+
+                <h:form>  
+
+                    <p:panel header="Introduzca la información sobre la oferta que desea modificar">
                         <p:growl id="messages" showDetail="true"
                                  autoUpdate="true"/>
 
@@ -20,16 +25,16 @@
                             <p:row>
                                 <p:column><p:outputLabel for="nombre" value="Nombre:"/></p:column>
                                 <p:column>
-                                    <p:inputText value="#{ofertaBackingBean.nombre}"
-                                                 required="true" maxlength="256"
+                                    <p:inputText value="#{editarOfertaBackingBean.nombre}"
+                                                 maxlength="256"
                                                  id="nombre"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel for="descripcion" value="Descripción completa de la oferta:"/></p:column>
                                 <p:column>
-                                    <p:inputTextarea value="#{ofertaBackingBean.descripcion}"
-                                                     required="true" maxlength="1024"
+                                    <p:inputTextarea value="#{editarOfertaBackingBean.descripcion}"
+                                                     maxlength="1024"
                                                      id="descripcion"/>
                                 </p:column>
                             </p:row>
@@ -37,8 +42,7 @@
                                 <p:column><p:outputLabel for="reqMinimos" value="Requisito mínimo:"/></p:column>
                                 <p:column>
                                     <p:selectOneButton id="reqMinimos" 
-                                                       required="true"
-                                                       value="#{ofertaBackingBean.reqMinimos}">
+                                                       value="#{editarOfertaBackingBean.reqMinimos}">
                                         <f:selectItem itemValue="ESO" itemLabel="Estudios de Secundaria obligatorios"/>
                                         <f:selectItem itemValue="Bachiller" itemLabel="Bachillerato"/>
                                         <f:selectItem itemValue="Medio" itemLabel="Grado medio"/>
@@ -51,24 +55,18 @@
                             <p:row>
                                 <p:column><p:outputLabel for="puesto" value="Puesto de trabajo:"/></p:column>
                                 <p:column>
-                                    <p:inputText value="#{ofertaBackingBean.puestoTrabajo}"
-                                                 required="true" maxlength="256"
+                                    <p:inputText value="#{editarOfertaBackingBean.puestoTrabajo}"
+                                                 maxlength="256"
                                                  id="puesto"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel for="empresa" value="Empresa:"/></p:column>
-                                <p:column>
-                                    <h:outputText value="#{loginView.user.nombre}"
-                                                 id="empresa"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
                                     <p:commandButton value="Enivar oferta"   
-                                                 action="#{ofertaClientBean.addOferta(loginView.user.usuarioId)}"
-                                                 update="panel"/>
-                                    <p:commandButton value="Volver" action="empresaIndex"
+                                                     action="#{ofertaClientBean.updateOferta}"
+                                                     update="panel"/>
+                                    <p:commandButton value="Volver"   
+                                                     action="ofertasPropias?faces-redirect=true"
                                                      immediate="true"/>
                                 </p:column>
                             </p:row>

@@ -7,6 +7,7 @@ package grupo15.portalempleo.jaas;
 
 import grupo15.portalempleo.entities.Formacion;
 import grupo15.portalempleo.entities.Grupo;
+import grupo15.portalempleo.entities.Oferta;
 import grupo15.portalempleo.entities.Presentar;
 import grupo15.portalempleo.entities.Usuario;
 import java.io.UnsupportedEncodingException;
@@ -50,6 +51,10 @@ public class UserEJB {
 
     public void updateGrupo(Grupo grupo) {
         em.merge(grupo);
+    }
+    
+    public void updateOferta(Oferta oferta) {
+        em.merge(oferta);
     }
 
     public void deleteUsuario(Usuario user) {
@@ -128,5 +133,12 @@ public class UserEJB {
                 em.remove(pres);
             }
         }
+    }
+    
+    public Oferta findOferta(int ofertaId) {
+        TypedQuery<Oferta> query = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
+        query.setParameter("ofertaId", ofertaId);
+        
+        return query.getSingleResult();
     }
 }

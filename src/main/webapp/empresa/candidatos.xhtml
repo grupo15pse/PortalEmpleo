@@ -18,7 +18,7 @@
                 
                 <c:choose>
                     <c:when test="#{empty ofertaClientBean.usuariosByOferta}">
-                        <p:panel header="Ofertas disponibles">
+                        <p:panel header="Candidatos inscritos">
                             <h:outputText value="No hay ofertas disponibles en este momento. Puede crear ofertas en el apartado Crear Oferta."
                                           />
                         </p:panel>
@@ -27,7 +27,7 @@
                         <p:dataScroller value="#{ofertaClientBean.usuariosByOferta}"
                                         var="usuario" chunkSize="10">
                             <f:facet name="header">
-                                Baje para ver más candidatos
+                                Candidatos inscritos a la oferta
                             </f:facet>
 
                             <f:facet name="loader">
@@ -39,7 +39,7 @@
                                     <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                     <p:column><h:outputText id="nombre" value="#{usuario.nombre}"/></p:column>
                                     <p:column rowspan="6">
-                                        <p:button value="Contactar"/>
+                                        <a href="mailto:#{usuario.email}">Contactar</a>
                                     </p:column>
                                 </p:row>
 

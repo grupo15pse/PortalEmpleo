@@ -46,7 +46,6 @@ public class OfertaWriter implements MessageBodyWriter<Oferta>{
         if (t.getFechaIncorp() != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             fecha = format.format(t.getFechaIncorp());
-            System.out.println("Fecha a escribir " + fecha);
         }
         
         JsonGenerator gen = Json.createGenerator(entityStream);
