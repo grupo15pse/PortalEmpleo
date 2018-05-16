@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" >
+                <h2><h:outputText value="Job4Us - Portal de Empleo"/></h2>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="200" header="Menú" collapsible="true" >
+                <h:form>
+
+                    <c:choose>
+                        <c:when test="#{request.isUserInRole('admin')}">
+                            <p:menu >
+                                <p:submenu label="Ofertas">
+                                    <p:menuitem value="Ver ofertas" outcome="./adminIndex.xhtml"/>
+                                </p:submenu>
+
+                                <p:submenu label="Empresas">
+                                    <p:menuitem value="Ver empresas" outcome="./empresas.xhtml"/>
+                                    <p:menuitem value="Crear empresa" outcome="./crearEmpresa.xhtml"/>
+                                </p:submenu>
+
+
+                                <p:submenu label="Sesion">
+                                    <p:menuitem value="Cerrar sesión" action="#{loginView.logout}" />
+                                </p:submenu>
+                            </p:menu>
+                        </c:when>
+
+                        <c:when test="#{request.isUserInRole('empresa')}">
+                            <p:menu rendered="#{loginView.user.tipo.equalsIgnoreCase('empresa')}">
+                                <p:submenu label="Ofertas">
+                                    <p:menuitem value="Ver ofertas" outcome="empresaIndex.xhtml"/>
+                                    <p:menuitem value="Ver ofertas propias" outcome="./ofertasPropias.xhtml"/>
+                                    <p:menuitem value="Crear oferta" action="crearOferta?faces-redirect=true"/>
+                                </p:submenu>
+
+                                <p:submenu label="Sesion">
+                                    <p:menuitem value="Chat" outcome="./empresaIndex.xhtml"/>
+                                    <p:menuitem value="Cerrar sesión" action="#{loginView.logout}"/>
+                                </p:submenu>
+                            </p:menu>
+                        </c:when>
+
+                        <c:when test="#{request.isUserInRole('candidato')}">
+                            <h:outputText value="Hola, #{loginView.user.nombre}"/>
+                            <p:menu>
+                                <p:submenu label="Ofertas">
+                                    <p:menuitem value="Ver ofertas" outcome="./candidatoIndex.xhtml"/>
+                                    <p:menuitem value="Ver ofertas inscrito" outcome="./ofertasInscrito.xhtml"/>
+                                </p:submenu>
+
+                                <p:submenu label="Perfil">
+                                    <p:menuitem value="Ver perfil" outcome="./perfil.xhtml"/>
+
+                                </p:submenu>
+
+                                <p:submenu label="Sesion">
+                                    <p:menuitem value="Chat" outcome="/index.xhtml"/>
+                                    <p:menuitem value="Cerrar sesión" action="#{loginView.logout}"/>
+                                </p:submenu>
+                            </p:menu>
+                        </c:when>
+
+                        <c:otherwise>
+                            <p:menu>
+                                <p:submenu label="Ofertas">
+                                    <p:menuitem value="Ver ofertas" outcome="/index"/>
+                                </p:submenu>
+
+                                <p:submenu label="Sesión">
+                                    <p:menuitem value="Iniciar sesión" outcome="/login"/>
+                                    <p:menuitem value="Registrarse" action="registro"/>
+                                </p:submenu>
+                            </p:menu>
+                        </c:otherwise>
+                    </c:choose>
+
+                </h:form>
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="center">
+                <ui:insert name="content">Content</ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south">
+
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+
+</html>

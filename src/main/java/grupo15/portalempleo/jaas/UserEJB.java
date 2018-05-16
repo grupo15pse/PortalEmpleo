@@ -53,8 +53,6 @@ public class UserEJB {
     }
 
     public void deleteUsuario(Usuario user) {
-        //em.remove(user);
-        //em.createNamedQuery("DELETE FROM Usuario WHERE usuarioId=" + user.getUsuarioId());
         Query query = em.createQuery("DELETE FROM Usuario u WHERE u.usuarioId= :usuarioId");
         query.setParameter("usuarioId", user.getUsuarioId());
         query.executeUpdate();
