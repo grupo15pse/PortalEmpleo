@@ -53,6 +53,10 @@
                                     <p:menuitem value="Chat" outcome="./empresaIndex.xhtml"/>
                                     <p:menuitem value="Cerrar sesión" action="#{loginView.logout}"/>
                                 </p:submenu>
+                                
+                                <p:submenu label="Chat">
+                                    <p:menuitem value="Chat" outcome="/faces/chat/chatroom.xhtml"/>
+                                </p:submenu>
                             </p:menu>
                         </c:when>
 
@@ -66,7 +70,10 @@
 
                                 <p:submenu label="Perfil">
                                     <p:menuitem value="Ver perfil" outcome="./perfil.xhtml"/>
-
+                                </p:submenu>
+                                
+                                <p:submenu label="Chat">
+                                    <p:menuitem value="Chat" outcome="/faces/chat/chatroom.xhtml"/>
                                 </p:submenu>
 
                                 <p:submenu label="Sesion">
