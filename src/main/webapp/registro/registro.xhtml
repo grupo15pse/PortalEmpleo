@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -17,9 +19,8 @@
                             <p:row>
                                 <p:column><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
                                 <p:column>
-                                    <p:inputText id="email" value="#{registro.email}" 
-                                                 required="true">
-                                    </p:inputText>
+                                    <ezcomp:inputEmail almacenar="#{registro.email}"
+                                                       id="email"/>
                                 </p:column>
                             </p:row>
                             
@@ -28,11 +29,10 @@
                                 <p:column>
                                     <p:inputText id="nombre" value="#{registro.name}" 
                                                  required="true">
+                                        <f:validateLength minimum="2" maximum="256"/>
                                     </p:inputText>
                                 </p:column>
                             </p:row>
-                            
-                            
 
                             <p:row>
                                 <p:column colspan="2">

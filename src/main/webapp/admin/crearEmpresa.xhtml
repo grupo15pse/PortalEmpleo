@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -18,7 +20,7 @@
                             <p:column><p:outputLabel for="nombre" value="Nombre: " /></p:column>
                             <p:column>
                                 <p:inputText id="nombre" required="true" value="#{empresaBackingBean.nombre}">
-                                    
+                                    <f:validateLength maximum="256" minimum="2"/>
                                 </p:inputText>
                             </p:column>
                         </p:row>
@@ -26,9 +28,7 @@
                         <p:row>
                             <p:column><p:outputLabel for="email" value="Correo electrónico: " /></p:column>
                             <p:column>
-                                <p:inputText id="email" required="true" value="#{empresaBackingBean.email}">
-                                    
-                                </p:inputText>
+                                <ezcomp:inputEmail id="email" almacenar="#{empresaBackingBean.email}"/>
                             </p:column>
                         </p:row>
                         
@@ -36,7 +36,7 @@
                             <p:column><p:outputLabel for="pass" value="Contraseña: " /></p:column>
                             <p:column>
                                 <p:password id="pass" match="pass2" required="true" value="#{empresaBackingBean.pass}">
-                                    
+                                    <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})" />
                                 </p:password>
                             </p:column>
                         </p:row>
@@ -44,7 +44,6 @@
                             <p:column><p:outputLabel for="pass2" value="Vuelva a introducir la contraseña: "/></p:column>
                             <p:column>
                                 <p:password id="pass2" required="true" value="#{empresaBackingBean.pass}">
-                                    
                                 </p:password>
                             </p:column>
                         </p:row>
@@ -52,7 +51,11 @@
                         <p:row>
                             <p:column colspan="2">
                                 <p:commandButton value="Guardar empresa" update="panel"
-                                                 action="#{empresaClientBean.addEmpresa}"/>
+                                                 action="#{empresaClientBean.addEmpresa}"
+                                                 icon="fa fa-save"/>
+                                <p:commandButton value="Volver" immediate="true"
+                                                 action="adminIndex"
+                                                 icon="fa fa-undo"/>
                             </p:column>
                             
                         </p:row>

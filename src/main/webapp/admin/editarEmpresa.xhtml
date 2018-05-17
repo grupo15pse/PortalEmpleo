@@ -26,15 +26,18 @@
                                 <p:column>
                                     <p:inputText value="#{editarEmpresaBakingBean.nombre}"
                                                  id="nombre" required="true">
+                                        <f:validateLength minimum="2" maximum="256"/>
                                     </p:inputText>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
                                     <p:commandButton action="empresas" value="Volver"
-                                                     immediate="true"/>
+                                                     immediate="true"
+                                                     icon="fa fa-undo"/>
                                     <p:commandButton action="#{empresaClientBean.updateEmpresa}"
                                                      value="Actualizar valores"
+                                                     icon="fa fa-save"
                                                      update="panel"/>
                                 </p:column>
                             </p:row>

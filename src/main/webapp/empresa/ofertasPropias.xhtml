@@ -27,7 +27,8 @@
                             </f:facet>
 
                             <f:facet name="loader">
-                                <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                                <p:commandButton type="button" value="More"
+                                                 icon="fa fa-plus"/>
                             </f:facet>
 
                             <p:panelGrid>
@@ -35,26 +36,28 @@
                                     <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                     <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
                                     <p:column rowspan="6">
-                                        <p:link outcome="candidatos" value="Ver candidatos">
+                                        <p:button outcome="candidatos"
+                                                  value="Ver candidatos"
+                                                  icon="fa fa-eye">
                                             <f:param name="oferta" value="#{oferta.ofertaId}"/>
-                                        </p:link>
+                                        </p:button>
 
-                                        
+
 
                                         <p:commandButton action="#{ofertaClientBean.deleteOferta(oferta)}"
-                                                         icon="ui-icon-trash">
+                                                         icon="fa fa-trash">
                                             <p:confirm header="Confirmación" message="¿Estás seguro de querer borrar la empresa #{oferta.nombre}?" icon="ui-icon-alert" />
                                         </p:commandButton>
 
                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                            <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                            <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-thumbs-up" />
+                                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-thumbs-down" />
                                         </p:confirmDialog>
-                                        
-                                        <p:button icon="ui-icon-pencil"
-                                                              outcome="editarOferta">
+
+                                        <p:button icon="fa fa-pencil"
+                                                  outcome="editarOferta">
                                             <f:param name="oferta" value="#{oferta.ofertaId}" />
-                                                    </p:button>
+                                        </p:button>
                                     </p:column>
                                 </p:row>
 

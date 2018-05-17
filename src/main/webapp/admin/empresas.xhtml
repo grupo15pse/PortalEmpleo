@@ -28,7 +28,8 @@
                                 </f:facet>
 
                                 <f:facet name="loader">
-                                    <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                                    <p:commandButton type="button" value="More"
+                                                     icon="fa fa-plus"/>
                                 </f:facet>
 
                                 <h:panelGrid>
@@ -41,17 +42,23 @@
                                                 <p:column><h:outputText value="#{empresa.usuarioId}"/></p:column>
                                                 <p:column rowspan="4">
                                                     <p:commandButton action="#{empresaClientBean.deleteEmpresa(empresa)}"
-                                                                     icon="ui-icon-trash"
+                                                                     icon="fa fa-trash"
                                                                      >
-                                                        <p:confirm header="Confirmación" message="¿Estás seguro de querer borrar la empresa #{empresa.nombre}?" icon="ui-icon-alert" />
+                                                        <p:confirm header="Confirmación" message="¿Estás seguro de querer borrar la empresa #{empresa.nombre}?" icon="fa fa-exclamation-triangle"/>
                                                     </p:commandButton>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                        <p:commandButton value="Sí"
+                                                                         type="button"
+                                                                         styleClass="ui-confirmdialog-yes"
+                                                                         icon="fa fa-thumbs-up" />
+                                                        <p:commandButton value="No"
+                                                                         type="button"
+                                                                         styleClass="ui-confirmdialog-no"
+                                                                         icon="fa fa-thumbs-down" />
                                                     </p:confirmDialog>
 
-                                                    <p:button icon="ui-icon-pencil"
+                                                    <p:button icon="fa fa-pencil"
                                                               outcome="editarEmpresa">
                                                         <f:param name="empresa" value="#{empresa.usuarioId}" />
                                                     </p:button>

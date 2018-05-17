@@ -27,7 +27,7 @@
                                 </f:facet>
 
                                 <f:facet name="loader">
-                                    <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                                    <p:commandButton type="button" value="More" icon="fa fa-plus"/>
                                 </f:facet>
 
 
@@ -40,7 +40,8 @@
                                             <p:column rowspan="6">
                                                 <p:commandButton value="Inscribirse"
                                                                  action="#{presentarClientBean.inscribirse(oferta,loginView.user)}"
-                                                                 disabled="#{presentarClientBean.isInscrito(loginView.user, oferta)}"/>
+                                                                 disabled="#{presentarClientBean.isInscrito(loginView.user, oferta)}"
+                                                                 icon="fa fa-user-plus"/>
                                             </p:column>
                                         </p:row>
 

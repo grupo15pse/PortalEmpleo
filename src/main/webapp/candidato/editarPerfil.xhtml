@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -12,23 +13,17 @@
             <ui:define name="content">
                 <h:form>
                     <p:growl showDetail="true" autoUpdate="true"/>
-                    <p:panelGrid>
+                    <p:panelGrid id="grid">
 
                         <p:row>
                             <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                             <p:column>
                                 <p:inputText value="#{editarPerfilBakingBean.nombre}"
-                                             id="nombre"/>
+                                             id="nombre">
+                                    <f:validateLength minimum="2" maximum="256"/>
+                                </p:inputText>
                             </p:column>
                         </p:row>
-
-                        <!--<p:row>
-                            <p:column><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
-                            <p:column>
-                                <p:inputText value="#{editarPerfilBakingBean.correo}"
-                                             id="email"/>
-                            </p:column>
-                        </p:row>-->
 
                         <p:row>
                             <p:column><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
@@ -49,7 +44,6 @@
                                                decimalPlaces="0"
                                                maxlength="9" maxValue="799999999"
                                                id="tel"/>
-
                             </p:column>
                         </p:row>
 
@@ -64,8 +58,11 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:commandButton action="#{loginView.updateCandidato}" value="Actualizar valores"/>
-                                <p:button outcome="perfil" value="Volver"/>
+                                <p:commandButton action="#{loginView.updateCandidato}" value="Actualizar valores"
+                                                 icon="fa fa-save"
+                                                 update="grid"/>
+                                <p:button outcome="perfil" value="Volver"
+                                          icon="fa fa-undo"/>
                             </p:column>
 
                         </p:row>

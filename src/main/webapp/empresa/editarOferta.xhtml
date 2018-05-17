@@ -26,16 +26,18 @@
                                 <p:column><p:outputLabel for="nombre" value="Nombre:"/></p:column>
                                 <p:column>
                                     <p:inputText value="#{editarOfertaBackingBean.nombre}"
-                                                 maxlength="256"
-                                                 id="nombre"/>
+                                                 id="nombre">
+                                        <f:validateLength minimum="2" maximum="256"/>
+                                    </p:inputText>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel for="descripcion" value="Descripción completa de la oferta:"/></p:column>
                                 <p:column>
                                     <p:inputTextarea value="#{editarOfertaBackingBean.descripcion}"
-                                                     maxlength="1024"
-                                                     id="descripcion"/>
+                                                     id="descripcion">
+                                        <f:validateLength minimum="6" maximum="1024"/>
+                                    </p:inputTextarea>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -56,18 +58,21 @@
                                 <p:column><p:outputLabel for="puesto" value="Puesto de trabajo:"/></p:column>
                                 <p:column>
                                     <p:inputText value="#{editarOfertaBackingBean.puestoTrabajo}"
-                                                 maxlength="256"
-                                                 id="puesto"/>
+                                                 id="puesto">
+                                        <f:validateLength minimum="2" maximum="256"/>
+                                    </p:inputText>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
-                                    <p:commandButton value="Enivar oferta"   
+                                    <p:commandButton value="Enviar oferta"   
                                                      action="#{ofertaClientBean.updateOferta}"
-                                                     update="panel"/>
+                                                     update="panel"
+                                                     icon="fa fa-save"/>
                                     <p:commandButton value="Volver"   
                                                      action="ofertasPropias?faces-redirect=true"
-                                                     immediate="true"/>
+                                                     immediate="true"
+                                                     icon="fa fa-undo"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

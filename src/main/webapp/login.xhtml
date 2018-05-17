@@ -12,15 +12,23 @@
         <h:form>
             <p:messages id="messages" closable="true" autoUpdate="true"/>
             <p:panel header="Acceso de usuario">
-                <h:panelGrid id="grid" columns="2">
+                <h:panelGrid id="grid" columns="3">
                     <h:outputLabel for="email" value="Correo electrónico:"/>
                     <p:inputText id="email" value="#{loginView.email}" required="true"
                                  requiredMessage="Por favor, introduce tu email."/>
+                    <p:message for="email"/>
+                    
                     <h:outputLabel for="password" value="Contraseña:"/>
                     <p:password id="password" value="#{loginView.password}" required="true"
                                 requiredMessage="Por favor, introduce tu contraseña."/>
+                    <p:message for="password"/>
                 </h:panelGrid>
-                <p:commandButton action="#{loginView.login}" value="Iniciar sesión" icon="ui-icon-check"/>
+                <p:commandButton action="#{loginView.login}" value="Iniciar sesión"
+                                 icon="fa fa-angellist" update="grid"
+                                 validateClient="true"/>
+                <p:commandButton action="index" value="Volver"
+                                 icon="fa fa-undo" 
+                                 immediate="true"/>
             </p:panel>
         </h:form>
     </h:body>
