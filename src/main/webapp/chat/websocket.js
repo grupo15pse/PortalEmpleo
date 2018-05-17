@@ -5,7 +5,7 @@
  */
 
 //Conexión Websocket y variables
-var wsUri = 'ws://' + document.location.host + document.location.pathname.substr(0, document.location.pathname.indexOf("/faces")) + '/websocket';
+var wsUri = 'wss://' + document.location.host + document.location.pathname.substr(0, document.location.pathname.indexOf("/faces")) + '/websocket';
 console.log(wsUri);
 var websocket = new WebSocket(wsUri); //Inicializa el websocket
 var textField = document.getElementById("texto");

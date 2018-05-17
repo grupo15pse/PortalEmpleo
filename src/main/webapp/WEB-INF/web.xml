@@ -16,7 +16,7 @@
     <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
-    </context-param>  
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -55,7 +55,12 @@
         <web-resource-collection>
             <web-resource-name>Páginas de candidatos</web-resource-name>
             <description/>
-            <url-pattern>/faces/candidato/candidatoIndex.xhtml</url-pattern>
+            <url-pattern>/faces/candidato/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Chat de candidatos</web-resource-name>
+            <description/>
+            <url-pattern>/faces/chat/chatroom.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
@@ -71,7 +76,12 @@
         <web-resource-collection>
             <web-resource-name>Páginas de empresas</web-resource-name>
             <description/>
-            <url-pattern>/faces/empresa/empresaIndex.xhtml</url-pattern>
+            <url-pattern>/faces/empresa/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Chat de empresas</web-resource-name>
+            <description/>
+            <url-pattern>/faces/chat/chatroom.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

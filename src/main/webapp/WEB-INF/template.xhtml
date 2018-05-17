@@ -26,14 +26,14 @@
                         <c:when test="#{request.isUserInRole('admin')}">
                             <p:menu >
                                 <p:submenu label="Ofertas">
-                                    <p:menuitem value="Ver ofertas" outcome="./adminIndex.xhtml"
+                                    <p:menuitem value="Ver ofertas" outcome="/faces/admin/adminIndex.xhtml"
                                                 icon="fa fa-home"/>
                                 </p:submenu>
 
                                 <p:submenu label="Empresas">
-                                    <p:menuitem value="Ver empresas" outcome="./empresas.xhtml"
+                                    <p:menuitem value="Ver empresas" outcome="/faces/admin/empresas.xhtml"
                                                 icon="fa fa-eye"/>
-                                    <p:menuitem value="Crear empresa" outcome="./crearEmpresa.xhtml"
+                                    <p:menuitem value="Crear empresa" outcome="/faces/admin/crearEmpresa.xhtml"
                                                 icon="fa fa-plus-circle"/>
                                 </p:submenu>
 
@@ -48,16 +48,16 @@
                         <c:when test="#{request.isUserInRole('empresa')}">
                             <p:menu rendered="#{loginView.user.tipo.equalsIgnoreCase('empresa')}">
                                 <p:submenu label="Ofertas">
-                                    <p:menuitem value="Ver ofertas" outcome="empresaIndex.xhtml"
+                                    <p:menuitem value="Ver ofertas" outcome="/faces/empresa/empresaIndex.xhtml"
                                                 icon="fa fa-home"/>
-                                    <p:menuitem value="Ver ofertas propias" outcome="./ofertasPropias.xhtml"
+                                    <p:menuitem value="Ver ofertas propias" outcome="/faces/empresa/ofertasPropias.xhtml"
                                                 icon="fa fa-eye"/>
                                     <p:menuitem value="Crear oferta" action="crearOferta?faces-redirect=true"
                                                 icon="fa fa-plus"/>
                                 </p:submenu>
                                 
                                 <p:submenu label="Chat">
-                                    <p:menuitem value="Chat" url="/faces/chat/chatroom.xhtml"
+                                    <p:menuitem value="Chat" outcome="/faces/chat/chatroom.xhtml"
                                                 icon="fa fa-comment"/>
                                 </p:submenu>
 
@@ -72,14 +72,14 @@
                             <h:outputText value="Hola, #{loginView.user.nombre}"/>
                             <p:menu>
                                 <p:submenu label="Ofertas">
-                                    <p:menuitem value="Ver ofertas" outcome="./candidatoIndex.xhtml"
+                                    <p:menuitem value="Ver ofertas" outcome="/faces/candidato/candidatoIndex.xhtml"
                                                 icon="fa fa-home"/>
-                                    <p:menuitem value="Ver ofertas inscrito" outcome="./ofertasInscrito.xhtml"
+                                    <p:menuitem value="Ver ofertas inscrito" outcome="/faces/candidato/ofertasInscrito.xhtml"
                                                 icon="fa fa-eye"/>
                                 </p:submenu>
 
                                 <p:submenu label="Perfil">
-                                    <p:menuitem value="Ver perfil" outcome="./perfil.xhtml"
+                                    <p:menuitem value="Ver perfil" outcome="/faces/candidato/perfil.xhtml"
                                                 icon="fa fa-user"/>
                                 </p:submenu>
                                 
