@@ -46,7 +46,6 @@ public class UsuarioWriter implements MessageBodyWriter<Usuario> {
         if (t.getFechaNacimiento() != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             fecha = format.format(t.getFechaNacimiento());
-            System.out.println("Fecha a escribir " + fecha);
         }
 
         JsonGenerator gen = Json.createGenerator(entityStream);

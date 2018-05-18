@@ -15,6 +15,11 @@
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" >
                 <h2><h:outputText value="Job4Us - Portal de Empleo"/></h2>
+                <h:form>
+                    <p:inputText value="#{buscadorBackingBean.busqueda}" required="true"
+                                 placeholder="Búsqueda..."/>
+                    <p:commandButton action="/faces/buscador?faces-redirect=true" icon="fa fa-crosshairs"/>
+                </h:form>
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="200" header="Menú" collapsible="true" >

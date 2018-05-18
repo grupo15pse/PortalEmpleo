@@ -12,6 +12,7 @@ import grupo15.portalempleo.entities.Presentar;
 import grupo15.portalempleo.entities.Usuario;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -52,7 +53,7 @@ public class UserEJB {
     public void updateGrupo(Grupo grupo) {
         em.merge(grupo);
     }
-    
+
     public void updateOferta(Oferta oferta) {
         em.merge(oferta);
     }
@@ -61,7 +62,7 @@ public class UserEJB {
         Query query = em.createQuery("DELETE FROM Usuario u WHERE u.usuarioId= :usuarioId");
         query.setParameter("usuarioId", user.getUsuarioId());
         query.executeUpdate();
-        
+
         query = em.createQuery("DELETE FROM Grupo g WHERE g.email= :email");
         query.setParameter("email", user.getEmail());
     }
@@ -134,11 +135,71 @@ public class UserEJB {
             }
         }
     }
-    
+
     public Oferta findOferta(int ofertaId) {
         TypedQuery<Oferta> query = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
         query.setParameter("ofertaId", ofertaId);
-        
-        return query.getSingleResult();
+
+        Oferta resul = null;
+
+        try {
+            resul = query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("ERRROR en BUSQUEDA");
+        }
+
+        return resul;
+    }
+
+    public List<Oferta> findOfertasByBusqueda(String busqueda) {
+        TypedQuery<Oferta> query = em.createNamedQuery("Oferta.findAll", Oferta.class);
+
+        List<Oferta> listaCompleta = query.getResultList();
+
+        ArrayList<Oferta> listaFiltrada = new ArrayList<>();
+
+        for (Oferta ofer : listaCompleta) {
+            if (findById(ofer.getEmpresa()) == null) {
+                continue;
+            }
+
+            boolean valida = false;
+
+            if (ofer.getDescripcion().contains(busqueda)) {
+                valida = true;
+            }
+
+            if (ofer.getNombre().contains(busqueda)) {
+                valida = true;
+            }
+
+            if (ofer.getPuestoTrabajo().contains(busqueda)) {
+                valida = true;
+            }
+
+            if (ofer.getReqMinimos().contains(busqueda)) {
+                valida = true;
+            }
+
+            Usuario empresa = findById(ofer.getEmpresa());
+            String nombreEmpresa = empresa.getNombre();
+
+            if (nombreEmpresa.contains(busqueda)) {
+                valida = true;
+            }
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha = formatter.format(ofer.getFechaIncorp());
+
+            if (fecha.contains(busqueda)) {
+                valida = true;
+            }
+
+            if (valida) {
+                listaFiltrada.add(ofer);
+            }
+        }
+
+        return listaFiltrada;
     }
 }

@@ -21,6 +21,8 @@
                             </p:panel>
                         </c:when>
                         <c:otherwise>
+
+
                             <p:dataScroller value="#{ofertaClientBean.ofertas}" var="oferta" chunkSize="10">
                                 <f:facet name="header">
                                     Baje para ver más ofertas
@@ -37,7 +39,12 @@
                                         <p:row>
                                             <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                             <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                                            <p:column rowspan="6">
+                                            <p:column rowspan="5">
+                                                <p:outputLabel for="empresa" value="Empresa: "/>
+                                                <br/>
+                                                <h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/>
+                                            </p:column>
+                                            <p:column rowspan="5">
                                                 <p:commandButton value="Inscribirse"
                                                                  action="#{presentarClientBean.inscribirse(oferta,loginView.user)}"
                                                                  disabled="#{presentarClientBean.isInscrito(loginView.user, oferta)}"
@@ -64,19 +71,6 @@
                                             <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
                                             <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
                                         </p:row>
-
-                                        <p:row>
-                                            <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
-                                            <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
-                                        </p:row>
-
-
-
-                                        <p:row>
-
-                                        </p:row>
-
-
                                     </p:panelGrid>
                                 </p:outputPanel>
                             </p:dataScroller>
