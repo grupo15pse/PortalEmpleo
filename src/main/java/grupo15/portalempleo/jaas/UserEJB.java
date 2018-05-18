@@ -20,6 +20,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.PathParam;
 
 /**
  *
@@ -201,5 +202,62 @@ public class UserEJB {
         }
 
         return listaFiltrada;
+    }
+    
+    public List<Oferta> getOfertasOrderByNombre(String direccion) {
+        if(direccion.equals("asc")) {
+            return em.createNamedQuery("Oferta.findAllNombreA", Oferta.class).getResultList();
+        }else {
+            return em.createNamedQuery("Oferta.findAllNombreD", Oferta.class).getResultList();
+        }
+    }
+    
+    public List<Oferta> getOfertasOrderByEmpresa(String direccion) {
+        if(direccion.equals("asc")) {
+            return em.createNamedQuery("Oferta.findAllEmpresaA", Oferta.class).getResultList();
+        }else {
+            return em.createNamedQuery("Oferta.findAllEmpresaD", Oferta.class).getResultList();
+        }
+    }
+    
+    public List<Oferta> getOfertasOrderByPuesto(String direccion) {
+        if(direccion.equals("asc")) {
+            return em.createNamedQuery("Oferta.findAllPuestoA", Oferta.class).getResultList();
+        }else {
+            return em.createNamedQuery("Oferta.findAllPuestoD", Oferta.class).getResultList();
+        }
+    }
+    
+    public List<Oferta> getOfertasOrderByReq(String direccion) {
+        if(direccion.equals("asc")) {
+            return em.createNamedQuery("Oferta.findAllReqA", Oferta.class).getResultList();
+        }else {
+            return em.createNamedQuery("Oferta.findAllReqD", Oferta.class).getResultList();
+        }
+    }
+    
+    public List<Oferta> getOfertasOrderByFecha(String direccion) {
+        if(direccion.equals("asc")) {
+            return em.createNamedQuery("Oferta.findAllFechaA", Oferta.class).getResultList();
+        }else {
+            return em.createNamedQuery("Oferta.findAllFechaD", Oferta.class).getResultList();
+        }
+    }
+    
+    public List<Oferta> findOfertasByCandidato(Usuario user)  {
+        ArrayList<Oferta> resultado = new ArrayList<>();
+        Query presentarQuery = em.createNamedQuery("Presentar.findByCandidato", Presentar.class);
+        presentarQuery.setParameter("candidato", user.getUsuarioId());
+        List<Presentar> lista = presentarQuery.getResultList();
+   
+        for(Presentar pres: lista) {
+            System.out.println("PFERTA ID:" + pres.getPresentarPK().getOferta());
+            
+            Query ofertasQuery = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
+            ofertasQuery.setParameter("ofertaId", pres.getPresentarPK().getOferta());
+            resultado.add((Oferta) ofertasQuery.getSingleResult());
+        }
+
+        return resultado;
     }
 }

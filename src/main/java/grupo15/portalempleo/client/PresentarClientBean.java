@@ -13,6 +13,7 @@ import grupo15.portalempleo.jaas.LoginView;
 import grupo15.portalempleo.jaas.UserEJB;
 import grupo15.portalempleo.json.OfertaReader;
 import grupo15.portalempleo.rest.FormacionFacadeREST;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
@@ -81,15 +82,9 @@ public class PresentarClientBean {
         }
     }
 
-    public Oferta[] getOfertasInscrito(Usuario user) {
-        Oferta[] array = target
-                .register(OfertaReader.class)
-                .path("findOfertasByCandidato/{id}")
-                .resolveTemplate("id", user.getUsuarioId())
-                .request(MediaType.APPLICATION_JSON)
-                .get(Oferta[].class);
+    public List<Oferta> getOfertasInscrito(Usuario user) {
+        return userEJB.findOfertasByCandidato(user);
 
-        return array;
     }
     
     public void borrarInscripciones(Usuario user, Oferta oferta) {
@@ -99,7 +94,7 @@ public class PresentarClientBean {
     } 
 
     public boolean isInscrito(Usuario user, Oferta oferta) {
-        Oferta[] array = getOfertasInscrito(user);
+        List<Oferta> array = getOfertasInscrito(user);
         boolean isInscrito = false;
 
         for (Oferta ofert : array) {

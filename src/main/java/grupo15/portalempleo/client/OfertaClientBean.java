@@ -98,6 +98,26 @@ public class OfertaClientBean {
         return arrayList;
     }
     
+    public List<Oferta> getOfertasOrderByNombre(String direccion) {
+        return userEJB.getOfertasOrderByNombre(direccion);
+    }
+    
+    public List<Oferta> getOfertasOrderByEmpresa(String direccion) {
+        return userEJB.getOfertasOrderByEmpresa(direccion);
+    }
+    
+    public List<Oferta> getOfertasOrderByPuesto(String direccion) {
+        return userEJB.getOfertasOrderByPuesto(direccion);
+    }
+    
+    public List<Oferta> getOfertasOrderByReq(String direccion) {
+        return userEJB.getOfertasOrderByReq(direccion);
+    }
+    
+    public List<Oferta> getOfertasOrderByFecha(String direccion) {
+        return userEJB.getOfertasOrderByFecha(direccion);
+    }
+    
     public void deleteOferta(Oferta oferta) {
         String nombreOferta = oferta.getNombre();
 

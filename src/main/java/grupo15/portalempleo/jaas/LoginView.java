@@ -105,6 +105,10 @@ public class LoginView implements Serializable {
     
     public String deleteUsuario() {
         userEJB.deleteUsuario(user);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito",  "El usuario " + user.getNombre() + " ha sido borrado."));
+        
         return logout();
     }
     

@@ -113,7 +113,7 @@ public class PresentarFacadeREST extends AbstractFacade<Presentar> {
         return String.valueOf(super.count());
     }
 
-    @GET
+    /*@GET
     @Path("findOfertasByCandidato/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Oferta> findOfertasByCandidato(@PathParam("id") int id) {
@@ -123,13 +123,15 @@ public class PresentarFacadeREST extends AbstractFacade<Presentar> {
         List<Presentar> lista = presentarQuery.getResultList();
    
         for(Presentar pres: lista) {
+            System.out.println("PFERTA ID:" + pres.getPresentarPK().getOferta());
+            
             Query ofertasQuery = em.createNamedQuery("Oferta.findByOfertaId", Oferta.class);
             ofertasQuery.setParameter("ofertaId", pres.getPresentarPK().getOferta());
             resultado.add((Oferta) ofertasQuery.getSingleResult());
         }
 
         return resultado;
-    }
+    }*/
 
     @Override
     protected EntityManager getEntityManager() {

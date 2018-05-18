@@ -10,79 +10,80 @@
 
         <ui:composition template="./../WEB-INF/template.xhtml">
 
-            <ui:define name="content">                
-                <p:panelGrid>
+            <ui:define name="content">  
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <h:form>
+                    <p:panelGrid>
 
-                    <p:row>
-                        <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                        <p:column><h:outputText id="nombre" value="#{loginView.user.nombre}"/></p:column>
-                    </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                            <p:column><h:outputText id="nombre" value="#{loginView.user.nombre}"/></p:column>
+                        </p:row>
 
-                    <p:row>
-                        <p:column><p:outputLabel for="desc" value="Correo electrónico: "/></p:column>
-                        <p:column><h:outputText id="desc" value="#{loginView.user.email}"/></p:column>
-                    </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="desc" value="Correo electrónico: "/></p:column>
+                            <p:column><h:outputText id="desc" value="#{loginView.user.email}"/></p:column>
+                        </p:row>
 
-                    <p:row>
-                        <p:column><p:outputLabel for="puesto" value="Fecha de nacimiento: "/></p:column>
-                        <p:column><h:outputText id="puesto" value="#{loginView.user.fechaNacimiento}"/></p:column>
-                    </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="puesto" value="Fecha de nacimiento: "/></p:column>
+                            <p:column><h:outputText id="puesto" value="#{loginView.user.fechaNacimiento}"/></p:column>
+                        </p:row>
 
-                    <p:row>
-                        <p:column><p:outputLabel for="fecha" value="Teléfono: "/></p:column>
-                        <p:column><h:outputText id="fecha" value="#{loginView.user.telefono}"/></p:column>
-                    </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="fecha" value="Teléfono: "/></p:column>
+                            <p:column><h:outputText id="fecha" value="#{loginView.user.telefono}"/></p:column>
+                        </p:row>
 
-                    <p:row>
-                        <p:column><p:outputLabel for="req" value="Número de tarjeta: "/></p:column>
-                        <p:column><h:outputText id="req" value="#{loginView.user.tarjeta}"/></p:column>
-                    </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="req" value="Número de tarjeta: "/></p:column>
+                            <p:column><h:outputText id="req" value="#{loginView.user.tarjeta}"/></p:column>
+                        </p:row>
 
-                    <p:row>
-                        <p:column><p:outputLabel value="Formación: "/></p:column>
-                        <p:column>
-                            <c:choose>
-                                <c:when test="#{loginView.formacion == 'Ninguna'}">
-                                    Ninguna
-                                </c:when>
-                                <c:when test="#{loginView.formacion == 'ESO'}">
-                                    Estudio de Secundaria Obligatorios
-                                </c:when>
-                                <c:when test="#{loginView.formacion == 'Medio'}">
-                                    Grado Medio
-                                </c:when>
-                                <c:when test="#{loginView.formacion == 'Bachiller'}">
-                                    Bachillerato
-                                </c:when>
-                                <c:when test="#{loginView.formacion == 'Superior'}">
-                                    Grado Superior
-                                </c:when>
-                                <c:when test="#{loginView.formacion == 'Carrera'}">
-                                    Carrera Universitaria
-                                </c:when>
-                                <c:otherwise>
-                                    Error
-                                </c:otherwise>
-                            </c:choose>
-                        </p:column>
-                    </p:row>
-                    
-                    <p:row>
-                        <p:column colspan="2">
-                            <p:button value="Editar perfil" outcome="editarPerfil"
-                                      icon="fa fa-pencil"/>
-                            <p:commandButton value="Darse de baja en Job4Us"
-                                             action="#{loginView.deleteUsuario()}"
-                                             icon="fa fa-trash"/>
-                            <p:commandButton value="Volver"
-                                             action="candidatoIndex"
-                                             icon="fa fa-undo"/>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
+                        <p:row>
+                            <p:column><p:outputLabel value="Formación: "/></p:column>
+                            <p:column>
+                                <c:choose>
+                                    <c:when test="#{loginView.formacion == 'Ninguna'}">
+                                        Ninguna
+                                    </c:when>
+                                    <c:when test="#{loginView.formacion == 'ESO'}">
+                                        Estudio de Secundaria Obligatorios
+                                    </c:when>
+                                    <c:when test="#{loginView.formacion == 'Medio'}">
+                                        Grado Medio
+                                    </c:when>
+                                    <c:when test="#{loginView.formacion == 'Bachiller'}">
+                                        Bachillerato
+                                    </c:when>
+                                    <c:when test="#{loginView.formacion == 'Superior'}">
+                                        Grado Superior
+                                    </c:when>
+                                    <c:when test="#{loginView.formacion == 'Carrera'}">
+                                        Carrera Universitaria
+                                    </c:when>
+                                    <c:otherwise>
+                                        Error
+                                    </c:otherwise>
+                                </c:choose>
+                            </p:column>
+                        </p:row>
 
-                
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:button value="Editar perfil" outcome="editarPerfil"
+                                          icon="fa fa-pencil"/>
+                                <p:commandButton value="Darse de baja en Job4Us"
+                                                 action="#{loginView.deleteUsuario}"
+                                                 icon="fa fa-trash"/>
+                                <p:commandButton value="Volver"
+                                                 action="candidatoIndex"
+                                                 icon="fa fa-undo"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
 
+                </h:form>           
             </ui:define>
 
         </ui:composition>

@@ -31,6 +31,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Oferta.findAll", query = "SELECT o FROM Oferta o")
+    , @NamedQuery(name = "Oferta.findAllNombreA", query = "SELECT o FROM Oferta o ORDER BY o.nombre ASC")
+    , @NamedQuery(name = "Oferta.findAllNombreD", query = "SELECT o FROM Oferta o ORDER BY o.nombre DESC")
+    , @NamedQuery(name = "Oferta.findAllEmpresaA", query = "SELECT o FROM Oferta o ORDER BY o.nombre ASC")
+    , @NamedQuery(name = "Oferta.findAllEmpresaD", query = "SELECT o FROM Oferta o ORDER BY o.empresa DESC")
+    , @NamedQuery(name = "Oferta.findAllReqA", query = "SELECT o FROM Oferta o ORDER BY o.reqMinimos ASC")
+    , @NamedQuery(name = "Oferta.findAllReqD", query = "SELECT o FROM Oferta o ORDER BY o.reqMinimos DESC")
+    , @NamedQuery(name = "Oferta.findAllFechaA", query = "SELECT o FROM Oferta o ORDER BY o.fechaIncorp ASC")
+    , @NamedQuery(name = "Oferta.findAllFechaD", query = "SELECT o FROM Oferta o ORDER BY o.fechaIncorp DESC")
+    , @NamedQuery(name = "Oferta.findAllPuestoA", query = "SELECT o FROM Oferta o ORDER BY o.puestoTrabajo ASC")
+    , @NamedQuery(name = "Oferta.findAllPuestoD", query = "SELECT o FROM Oferta o ORDER BY o.puestoTrabajo DESC")
     , @NamedQuery(name = "Oferta.findByOfertaId", query = "SELECT o FROM Oferta o WHERE o.ofertaId = :ofertaId")
     , @NamedQuery(name = "Oferta.findByNombre", query = "SELECT o FROM Oferta o WHERE o.nombre = :nombre")
     , @NamedQuery(name = "Oferta.findByDescripcion", query = "SELECT o FROM Oferta o WHERE o.descripcion = :descripcion")
@@ -173,5 +183,5 @@ public class Oferta implements Serializable {
     public String toString() {
         return "grupo15.portalempleo.entities.Oferta[ ofertaId=" + ofertaId + " ]";
     }
-    
+
 }

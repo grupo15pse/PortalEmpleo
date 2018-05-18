@@ -5,7 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <body>
 
@@ -21,59 +22,106 @@
                             </p:panel>
                         </c:when>
                         <c:otherwise>
-
-
-                            <p:dataScroller value="#{ofertaClientBean.ofertas}" var="oferta" chunkSize="10">
-                                <f:facet name="header">
-                                    Baje para ver más ofertas
-                                </f:facet>
-
-                                <f:facet name="loader">
-                                    <p:commandButton type="button" value="More" icon="fa fa-plus"/>
-                                </f:facet>
-
-
-                                <p:outputPanel>
-                                    <p:panelGrid>
-
+                            <p:accordionPanel>
+                                <p:tab title="Filtros">
+                                    <h:panelGrid>
                                         <p:row>
-                                            <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                                            <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                                            <p:column rowspan="5">
-                                                <p:outputLabel for="empresa" value="Empresa: "/>
-                                                <br/>
-                                                <h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/>
+                                            <p:column>
+                                                <p:outputLabel for="filtro"
+                                                               value="Filtro:"/>
                                             </p:column>
-                                            <p:column rowspan="5">
-                                                <p:commandButton value="Inscribirse"
-                                                                 action="#{presentarClientBean.inscribirse(oferta,loginView.user)}"
-                                                                 disabled="#{presentarClientBean.isInscrito(loginView.user, oferta)}"
-                                                                 icon="fa fa-user-plus"/>
+                                            <p:column>
+                                                <p:selectOneButton value="#{filtroBackingBean.filtro}"
+                                                                   id="filtro">
+                                                    <f:selectItem itemLabel="Nombre" itemValue="nombre" />
+                                                    <f:selectItem itemLabel="Fecha" itemValue="fecha" />
+                                                    <f:selectItem itemLabel="Empresa" itemValue="empresa" />
+                                                    <f:selectItem itemLabel="Requisitos mínimos" itemValue="req" />
+                                                    <f:selectItem itemLabel="Puesto de trabajo" itemValue="puesto" />
+                                                </p:selectOneButton>
                                             </p:column>
                                         </p:row>
-
+                                        
                                         <p:row>
-                                            <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
-                                            <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                                            <p:column>
+                                                <p:outputLabel for="tendencia"
+                                                               value="Tendencia:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:selectOneButton value="#{filtroBackingBean.direccion}"
+                                                                   id="tendencia"
+                                                                   required="true">
+                                                    <f:selectItem itemLabel="Ascendente" itemValue="asc" />
+                                                    <f:selectItem itemLabel="Descendente" itemValue="desc" />
+                                                </p:selectOneButton>
+                                            </p:column>
                                         </p:row>
-
+                                        
                                         <p:row>
-                                            <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                                            <p:column><h:outputText id="fecha" value="#{oferta.fechaIncorp}"/></p:column>
+                                            <p:column colspan="2">
+                                                <p:commandButton action="candidatoIndex?faces-redirect=true" value="Filtrar"/>
+                                            </p:column>
                                         </p:row>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:accordionPanel>
 
-                                        <p:row>
-                                            <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
-                                            <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
-                                        </p:row>
-
-                                        <p:row>
-                                            <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
-                                            <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
-                                        </p:row>
-                                    </p:panelGrid>
-                                </p:outputPanel>
-                            </p:dataScroller>
+                            <c:choose>
+                                <c:when test="#{filtroBackingBean.filtro eq 'nombre'}">
+                                    <c:choose>
+                                        <c:when test="#{filtroBackingBean.direccion eq 'asc'}">
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByNombre('asc')}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByNombre('desc')}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:when test="#{filtroBackingBean.filtro eq 'empresa'}">
+                                    <c:choose>
+                                        <c:when test="#{filtroBackingBean.direccion eq 'asc'}">
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByEmpresa('asc')}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByEmpresa('desc')}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:when test="#{filtroBackingBean.filtro eq 'fecha'}">
+                                    <c:choose>
+                                        <c:when test="#{filtroBackingBean.direccion eq 'asc'}">
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByFecha('asc')}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByFecha('desc')}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:when test="#{filtroBackingBean.filtro eq 'req'}">
+                                    <c:choose>
+                                        <c:when test="#{filtroBackingBean.direccion eq 'asc'}">
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByReq('asc')}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByReq('desc')}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:when test="#{filtroBackingBean.filtro eq 'puesto'}">
+                                    <c:choose>
+                                        <c:when test="#{filtroBackingBean.direccion eq 'asc'}">
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByPuesto('asc')}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.getOfertasOrderByPuesto('desc')}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.ofertas}"/>
+                                </c:otherwise>
+                            </c:choose>
+                            
                         </c:otherwise>
                     </c:choose>
                 </h:form>
