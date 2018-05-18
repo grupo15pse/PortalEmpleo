@@ -32,7 +32,7 @@
                                                      icon="fa fa-plus"/>
                                 </f:facet>
 
-                                <h:panelGrid>
+                                <h:panelGrid styleClass="tabla">
 
                                     <p:outputPanel>
                                         <p:panelGrid>
@@ -40,7 +40,12 @@
                                             <p:row>
                                                 <p:column><p:outputLabel value="ID: "/></p:column>
                                                 <p:column><h:outputText value="#{empresa.usuarioId}"/></p:column>
-                                                <p:column rowspan="4">
+                                                <p:column rowspan="3">
+                                                    <p:outputLabel value="Número de ofertas: "/>
+                                                    <br/>
+                                                    <h:outputText value="#{usuarioFacadeREST.findOfertasSize(empresa.usuarioId)}"/>
+                                                </p:column>
+                                                <p:column rowspan="3">
                                                     <p:commandButton action="#{empresaClientBean.deleteEmpresa(empresa)}"
                                                                      icon="fa fa-trash"
                                                                      >
@@ -72,11 +77,6 @@
                                             <p:row>
                                                 <p:column><p:outputLabel value="Correo electrónico: "/></p:column>
                                                 <p:column><h:outputText value="#{empresa.email}"/></p:column>
-
-                                            </p:row>
-                                            <p:row>
-                                                <p:column><p:outputLabel value="Número de ofertas: "/></p:column>
-                                                <p:column><h:outputText value="#{usuarioFacadeREST.findOfertasSize(empresa.usuarioId)}"/></p:column>
 
                                             </p:row>
                                         </p:panelGrid>
