@@ -8,7 +8,7 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Facelets Template</title>
+        <title>Job4Us - Portal Empleo</title>
     </h:head>
 
     <h:body>
@@ -19,7 +19,11 @@
                     <p:inputText value="#{buscadorBackingBean.busqueda}" required="true"
                                  placeholder="Búsqueda..."/>
                     <p:commandButton action="/faces/buscador?faces-redirect=true" icon="fa fa-crosshairs"/>
+
+
                 </h:form>
+
+                <p:button outcome="/faces/faq" icon="fa fa-question-circle"/>
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="200" header="Menú" collapsible="true" >
@@ -58,7 +62,7 @@
                                     <p:menuitem value="Crear oferta" action="crearOferta?faces-redirect=true"
                                                 icon="fa fa-plus"/>
                                 </p:submenu>
-                                
+
                                 <p:submenu label="Chat">
                                     <p:menuitem value="Chat" outcome="/faces/chat/chatroom.xhtml"
                                                 icon="fa fa-comment"/>
@@ -85,7 +89,7 @@
                                     <p:menuitem value="Ver perfil" outcome="/faces/candidato/perfil.xhtml"
                                                 icon="fa fa-user"/>
                                 </p:submenu>
-                                
+
                                 <p:submenu label="Chat">
                                     <p:menuitem value="Chat" outcome="/faces/chat/chatroom.xhtml"
                                                 icon="fa fa-comment"/>
