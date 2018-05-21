@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <body>
 
@@ -21,23 +22,23 @@
                         </p:row>
 
                         <p:row>
-                            <p:column><p:outputLabel for="desc" value="Correo electrónico: "/></p:column>
-                            <p:column><h:outputText id="desc" value="#{loginView.user.email}"/></p:column>
+                            <p:column><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
+                            <p:column><h:outputText id="email" value="#{loginView.user.email}"/></p:column>
                         </p:row>
 
                         <p:row>
-                            <p:column><p:outputLabel for="puesto" value="Fecha de nacimiento: "/></p:column>
-                            <p:column><h:outputText id="puesto" value="#{loginView.user.fechaNacimiento}"/></p:column>
+                            <p:column><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
+                            <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{loginView.user.fechaNacimiento}"/></p:column>
                         </p:row>
 
                         <p:row>
-                            <p:column><p:outputLabel for="fecha" value="Teléfono: "/></p:column>
-                            <p:column><h:outputText id="fecha" value="#{loginView.user.telefono}"/></p:column>
+                            <p:column><p:outputLabel for="tel" value="Teléfono: "/></p:column>
+                            <p:column><h:outputText id="tel" value="#{loginView.user.telefono}"/></p:column>
                         </p:row>
 
                         <p:row>
-                            <p:column><p:outputLabel for="req" value="Número de tarjeta: "/></p:column>
-                            <p:column><h:outputText id="req" value="#{loginView.user.tarjeta}"/></p:column>
+                            <p:column><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
+                            <p:column><h:outputText id="tarjeta" value="#{loginView.user.tarjeta}"/></p:column>
                         </p:row>
 
                         <p:row>

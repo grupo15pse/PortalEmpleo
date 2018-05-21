@@ -42,12 +42,12 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Usuario entity) {
-        System.out.println("CREATE " + entity.getEmail());
-        System.out.println("CREATE " + entity.getTelefono());
-        System.out.println("CREATE " + entity.getTarjeta());
-        
-        super.create(entity);
+    public void create(Usuario entity) {        
+        try{
+            super.create(entity);
+        }catch(Exception e) {
+            System.out.println("Se ha producido un error. Pruebe con otro correo");
+        }
     }
 
     @PUT

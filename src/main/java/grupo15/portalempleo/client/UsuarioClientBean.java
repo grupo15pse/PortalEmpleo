@@ -37,6 +37,7 @@ public class UsuarioClientBean {
 
     @Inject
     private UserEJB userEJB;
+
     /**
      * Creates a new instance of UsuarioClientBean
      */
@@ -54,20 +55,28 @@ public class UsuarioClientBean {
         client.close();
     }
 
-    public void addCandidato(Usuario candidato,Grupo grupo, Formacion formacion) {
-        target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
-        target.register(UsuarioWriter.class).request().post(Entity.entity(candidato, MediaType.APPLICATION_JSON));
+    public void addCandidato(Usuario candidato, Grupo grupo, Formacion formacion) {
 
-        target = client.target("http://localhost:8080/PortalEmpleo/webresources/grupo");
-        target.register(GrupoWriter.class).request().post(Entity.entity(grupo, MediaType.APPLICATION_JSON));
+        if (userEJB.findByEmail(candidato.getEmail()) == null) {
+            target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
+            target.register(UsuarioWriter.class).request().post(Entity.entity(candidato, MediaType.APPLICATION_JSON));
 
-        formacion.getFormacionPK().setCandidato(userEJB.findByEmail(candidato.getEmail()).getUsuarioId());
+            target = client.target("http://localhost:8080/PortalEmpleo/webresources/grupo");
+            target.register(GrupoWriter.class).request().post(Entity.entity(grupo, MediaType.APPLICATION_JSON));
 
-        target = client.target("http://localhost:8080/PortalEmpleo/webresources/formacion");
-        target.request().post(Entity.entity(formacion, MediaType.APPLICATION_JSON));
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Éxito",  "El candidato " + candidato.getNombre() + " ha sido insertado correctamente."));
+            formacion.getFormacionPK().setCandidato(userEJB.findByEmail(candidato.getEmail()).getUsuarioId());
+
+            target = client.target("http://localhost:8080/PortalEmpleo/webresources/formacion");
+            target.request().post(Entity.entity(formacion, MediaType.APPLICATION_JSON));
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Éxito", "El candidato " + candidato.getNombre() + " ha sido insertado correctamente."));
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error", "Pruebe con otro correo."));
+            System.out.println("Pruebe con otro correo.");
+        }
+
     }
-    
+
 }

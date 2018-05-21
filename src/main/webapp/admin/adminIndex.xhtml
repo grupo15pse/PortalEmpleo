@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <body>
 
@@ -50,7 +51,7 @@
 
                                             <p:row>
                                                 <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                                                <p:column><h:outputText id="fecha" value="#{oferta.fechaIncorp}"/></p:column>
+                                                <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
                                             </p:row>
 
                                             <p:row>

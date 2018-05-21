@@ -1,36 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body >
+    <body>
 
-        <h:form>
-            <p:messages id="messages" closable="true" autoUpdate="true"/>
-            <p:panel header="Acceso de usuario">
-                <h:panelGrid id="grid" columns="3">
-                    <h:outputLabel for="email" value="Correo electrónico:"/>
-                    <p:inputText id="email" value="#{loginView.email}" required="true"
-                                 requiredMessage="Por favor, introduce tu email."/>
-                    <p:message for="email"/>
-                    
-                    <h:outputLabel for="password" value="Contraseña:"/>
-                    <p:password id="password" value="#{loginView.password}" required="true"
-                                requiredMessage="Por favor, introduce tu contraseña."/>
-                    <p:message for="password"/>
-                </h:panelGrid>
-                <p:commandButton action="#{loginView.login}" value="Iniciar sesión"
-                                 icon="fa fa-angellist" update="grid"
-                                 validateClient="true"/>
-                <p:commandButton action="index" value="Volver"
-                                 icon="fa fa-undo" 
-                                 immediate="true"/>
-            </p:panel>
-        </h:form>
-    </h:body>
+        <ui:composition template="./WEB-INF/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:messages id="messages" closable="true" autoUpdate="true"/>
+                    <p:panel header="Acceso de usuario">
+                        <h:panelGrid id="grid" columns="3">
+                            <h:outputLabel for="email" value="Correo electrónico:"/>
+                            <p:inputText id="email" value="#{loginView.email}" required="true"
+                                         requiredMessage="Por favor, introduce tu email."/>
+                            <p:message for="email"/>
+
+                            <h:outputLabel for="password" value="Contraseña:"/>
+                            <p:password id="password" value="#{loginView.password}" required="true"
+                                        requiredMessage="Por favor, introduce tu contraseña."/>
+                            <p:message for="password"/>
+                        </h:panelGrid>
+                        <p:commandButton action="#{loginView.login}" value="Iniciar sesión"
+                                         icon="fa fa-angellist" update="grid"
+                                         validateClient="true"/>
+                        <p:commandButton action="index" value="Volver"
+                                         icon="fa fa-undo" 
+                                         immediate="true"/>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
 </html>
-

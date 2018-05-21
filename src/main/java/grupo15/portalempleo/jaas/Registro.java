@@ -40,9 +40,6 @@ public class Registro implements Serializable {
     
     @Inject
     private UsuarioClientBean clientBean;
-    
-    @Inject
-    private UserEJB userEJB;
 
     public String register() {
         Usuario user = new Usuario();

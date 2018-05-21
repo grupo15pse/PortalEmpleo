@@ -24,16 +24,16 @@
                             <p:row>
                                 <p:column><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
                                 <p:column>
-                                    <p:inputNumber value="#{registro.numTarjeta}"
-                                                   decimalPlaces="0"
-                                                   thousandSeparator=""
+                                    <p:inputText value="#{registro.numTarjeta}"
                                                    required="true"
                                                    id="tarjeta"
                                                    >
-                                        <f:validateLongRange minimum="0000000000000000"
-                                                             maximum="9999999999999999"/>
                                         <f:validateLength maximum="16" minimum="16"/>
-                                    </p:inputNumber>
+                                        <f:convertNumber integerOnly="true"
+                                                         maxIntegerDigits="16"
+                                                         minIntegerDigits="16"
+                                                         />
+                                    </p:inputText>
                                 </p:column>
                             </p:row>
 
