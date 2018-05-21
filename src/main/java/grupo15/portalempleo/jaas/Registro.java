@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,6 +75,17 @@ public class Registro implements Serializable {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         return format.format(date);
+    }
+    
+    public String fechaHace65Anos() {
+        Date fechaHace65 = null;
+        Calendar hoy = Calendar.getInstance();
+        hoy.add(Calendar.YEAR, -65);
+        fechaHace65 = hoy.getTime();
+        
+        
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(fechaHace65);
     }
 
     public String getName() {
