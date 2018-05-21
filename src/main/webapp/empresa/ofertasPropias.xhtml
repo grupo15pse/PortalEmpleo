@@ -13,7 +13,8 @@
         <ui:composition template="./../WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                <c:choose>
+                <h:form>
+                    <c:choose>
                     <c:when test="#{empty ofertaClientBean.getOfertasPropias(loginView.user.usuarioId)}">
                         <p:panel header="Ofertas disponibles">
                             <h:outputText value="No hay ofertas disponibles en este momento. Puede crear ofertas en el apartado Crear Oferta."
@@ -32,11 +33,11 @@
                                                  icon="fa fa-plus"/>
                             </f:facet>
 
-                            <p:panelGrid>
+                            <p:panelGrid styleClass="tabla">
                                 <p:row>
-                                    <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                                    <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                                    <p:column rowspan="6">
+                                    <p:column styleClass="columpar"><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                                    <p:column styleClass="columpar"><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                                    <p:column rowspan="6" styleClass="columimpar">
                                         <p:button outcome="candidatos"
                                                   value="Ver candidatos"
                                                   icon="fa fa-eye">
@@ -63,33 +64,34 @@
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
-                                    <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                                    <p:column styleClass="columimpar"><p:outputLabel for="desc" value="Descripción: "/></p:column>
+                                    <p:column styleClass="columimpar"><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                                    <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
+                                    <p:column styleClass="columpar"><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
+                                    <p:column styleClass="columpar"><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
-                                    <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
+                                    <p:column styleClass="columimpar"><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
+                                    <p:column styleClass="columimpar"><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
-                                    <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
+                                    <p:column styleClass="columpar"><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
+                                    <p:column styleClass="columpar"><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
-                                    <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
+                                    <p:column styleClass="columimpar"><p:outputLabel for="empresa" value="Empresa: "/></p:column>
+                                    <p:column styleClass="columimpar"><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
                                 </p:row>
                             </p:panelGrid>
                         </p:dataScroller>
                     </c:otherwise>
                 </c:choose>
+                </h:form>
             </ui:define>
 
         </ui:composition>

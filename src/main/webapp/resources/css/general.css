@@ -7,12 +7,46 @@ and open the template in the editor.
     Created on : 17-may-2018, 14:23:14
     Author     : Admin
 */
-
 .tabla {
-    width: 100%
+    width: 85%;
+    margin: 10px 0px;
+    
+    -webkit-transition: width 0.2s, background 1s;
+    -moz-transition: width 0.2s, background 1s;
+    -o-transition: width 0.2s, background 1s;
+    transition: width 0.2s, background 1s;
+    
+    -webkit-transition-timing-function: linear;
+    -moz-transition-timing-function: linear;
+    -o-transition-timing-function: linear;
+    transition-timing-function: linear;
+}
+
+.tabla:hover {
+    width: 100%;
+    background: #428bca;
+}
+
+.columpar {
+    width: 45%;
+}
+
+.columimpar {
+    width: 45%;
+    background-color: rgba(188,255,153,0.7);
 }
 
 .menu {
     width: 93%;
+    background-color: rgba(188,255,153,1);
 }
+
+body {
+    background-color: rgba(188,255,153,0.7);
+}
+
+.fondo {
+    background-color: rgba(188,255,153,0.7);
+}
+
 

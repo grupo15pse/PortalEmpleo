@@ -4,7 +4,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -24,17 +25,17 @@
 
 
             <p:outputPanel>
-                <p:panelGrid>
+                <p:panelGrid styleClass="tabla">
 
                     <p:row>
-                        <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                        <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                        <p:column rowspan="5">
+                        <p:column styleClass="columpar"><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                        <p:column styleClass="columpar"><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                        <p:column rowspan="5" styleClass="columimpar">
                             <p:outputLabel for="empresa" value="Empresa: "/>
                             <br/>
                             <h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/>
                         </p:column>
-                        <p:column rowspan="5">
+                        <p:column rowspan="5" styleClass="columpar">
                             <p:commandButton value="Inscribirse"
                                              action="#{presentarClientBean.inscribirse(oferta,loginView.user)}"
                                              disabled="#{presentarClientBean.isInscrito(loginView.user, oferta)}"
@@ -43,23 +44,23 @@
                     </p:row>
 
                     <p:row>
-                        <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
-                        <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                        <p:column styleClass="columimpar"><p:outputLabel for="desc" value="Descripción: "/></p:column>
+                        <p:column styleClass="columimpar"><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
                     </p:row>
 
                     <p:row>
-                        <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                        <p:column><h:outputText id="fecha" value="#{oferta.fechaIncorp}"/></p:column>
+                        <p:column styleClass="columpar"><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
+                        <p:column styleClass="columpar"><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
                     </p:row>
 
                     <p:row>
-                        <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
-                        <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
+                        <p:column styleClass="columimpar"><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
+                        <p:column styleClass="columimpar"><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
                     </p:row>
 
                     <p:row>
-                        <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
-                        <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
+                        <p:column styleClass="columpar"><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
+                        <p:column styleClass="columpar"><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
                     </p:row>
                 </p:panelGrid>
             </p:outputPanel>

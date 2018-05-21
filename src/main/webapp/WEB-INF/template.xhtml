@@ -9,31 +9,45 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Job4Us - Portal Empleo</title>
+
     </h:head>
 
     <h:body>
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" >
-                <h2><h:outputText value="Job4Us - Portal de Empleo"/></h2>
-                <h:form>
-                    <p:inputText value="#{buscadorBackingBean.busqueda}" required="true"
-                                 placeholder="Búsqueda..."/>
-                    <p:commandButton action="/faces/buscador?faces-redirect=true" icon="fa fa-crosshairs"/>
+        <h:outputStylesheet library="css" name="general.css"/>
+        <h:outputStylesheet library="css" name="template.css"/>
 
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="115" resizable="true" closable="true" collapsible="true"
+                           styleClass="north">
+                <p:graphicImage url="/resources/images/job4us.jpg" width="90"
+                                styleClass="logo"/>
+                
+                <h:form>
+                    <h2><p:commandLink value="Job4Us - Portal Empleo" action="/faces/index"
+                                       styleClass="linkhome"/></h2>
+                </h:form>
+
+                <h:form>
+                    <p:outputPanel styleClass="buscador">
+                        <p:inputText value="#{buscadorBackingBean.busqueda}" required="true"
+                                     placeholder="Búsqueda..."/>
+                        <p:commandButton action="/faces/buscador?faces-redirect=true" icon="fa fa-crosshairs"/>
+                    </p:outputPanel>
 
                 </h:form>
 
-                <p:button outcome="/faces/faq" icon="fa fa-question-circle"/>
-                
+                <p:button outcome="/faces/faq" icon="fa fa-question-circle"
+                          styleClass="faq"/>
+
                 <p:growl autoUpdate="true" showDetail="true"/>
             </p:layoutUnit>
 
-            <p:layoutUnit position="west" size="200" header="Menú" collapsible="true" >
+            <p:layoutUnit position="west" size="205" header="Menú" collapsible="true">
                 <h:form>
 
                     <c:choose>
                         <c:when test="#{request.isUserInRole('admin')}">
-                            <p:menu >
+                            <p:menu styleClass="menu">
                                 <p:submenu label="Ofertas">
                                     <p:menuitem value="Ver ofertas" outcome="/faces/admin/adminIndex.xhtml"
                                                 icon="fa fa-home"/>
@@ -55,7 +69,7 @@
                         </c:when>
 
                         <c:when test="#{request.isUserInRole('empresa')}">
-                            <p:menu rendered="#{loginView.user.tipo.equalsIgnoreCase('empresa')}">
+                            <p:menu rendered="#{loginView.user.tipo.equalsIgnoreCase('empresa')}" styleClass="menu">
                                 <p:submenu label="Ofertas">
                                     <p:menuitem value="Ver ofertas" outcome="/faces/empresa/empresaIndex.xhtml"
                                                 icon="fa fa-home"/>
@@ -79,7 +93,7 @@
 
                         <c:when test="#{request.isUserInRole('candidato')}">
                             <h:outputText value="Hola, #{loginView.user.nombre}"/>
-                            <p:menu>
+                            <p:menu styleClass="menu">
                                 <p:submenu label="Ofertas">
                                     <p:menuitem value="Ver ofertas" outcome="/faces/candidato/candidatoIndex.xhtml"
                                                 icon="fa fa-home"/>
@@ -105,7 +119,7 @@
                         </c:when>
 
                         <c:otherwise>
-                            <p:menu>
+                            <p:menu styleClass="menu">
                                 <p:submenu label="Ofertas">
                                     <p:menuitem value="Ver ofertas" outcome="/index"
                                                 icon="fa fa-home"/>

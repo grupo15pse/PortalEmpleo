@@ -20,8 +20,7 @@
                 <c:choose>
                     <c:when test="#{empty ofertaClientBean.usuariosByOferta}">
                         <p:panel header="Candidatos inscritos">
-                            <h:outputText value="No hay ofertas disponibles en este momento. Puede crear ofertas en el apartado Crear Oferta."
-                                          />
+                            <h:outputText value="No hay candidatos disponibles en este momento."/>
                         </p:panel>
                     </c:when>
                     <c:otherwise>
@@ -36,18 +35,18 @@
                                                  icon="fa fa-plus"/>
                             </f:facet>
 
-                            <p:panelGrid>
+                            <p:panelGrid styleClass="tabla">
                                 <p:row>
                                     <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                     <p:column><h:outputText id="nombre" value="#{usuario.nombre}"/></p:column>
-                                    <p:column rowspan="6">
+                                    <p:column rowspan="6" styleClass="columimpar">
                                         <a href="mailto:#{usuario.email}">Contactar</a>
                                     </p:column>
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
-                                    <p:column><h:outputText id="email" value="#{usuario.email}"/></p:column>
+                                    <p:column styleClass="columimpar"><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
+                                    <p:column styleClass="columimpar"><h:outputText id="email" value="#{usuario.email}"/></p:column>
                                 </p:row>
 
                                 <p:row>
@@ -56,13 +55,13 @@
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="tel" value="Teléfono: "/></p:column>
-                                    <p:column><h:outputText id="tel" value="#{usuario.telefono}"/></p:column>
+                                    <p:column styleClass="columimpar"><p:outputLabel for="tel" value="Teléfono: "/></p:column>
+                                    <p:column styleClass="columimpar"><h:outputText id="tel" value="#{usuario.telefono}"/></p:column>
                                 </p:row>
 
                                 <p:row>
-                                    <p:column><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
-                                    <p:column><h:outputText id="tarjeta" value="#{usuario.tarjeta}"/></p:column>
+                                    <p:column styleClass="columimpar"><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
+                                    <p:column styleClass="columimpar"><h:outputText id="tarjeta" value="#{usuario.tarjeta}"/></p:column>
                                 </p:row>
                             </p:panelGrid>
                         </p:dataScroller>

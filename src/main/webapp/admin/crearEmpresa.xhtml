@@ -26,8 +26,8 @@
                         </p:row>
                         
                         <p:row>
-                            <p:column><p:outputLabel for="email" value="Correo electrónico: " /></p:column>
-                            <p:column>
+                            <p:column styleClass="columimpar"><p:outputLabel for="email" value="Correo electrónico: " /></p:column>
+                            <p:column styleClass="columimpar">
                                 <ezcomp:inputEmail id="email" almacenar="#{empresaBackingBean.email}"/>
                             </p:column>
                         </p:row>
@@ -41,8 +41,8 @@
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column><p:outputLabel for="pass2" value="Vuelva a introducir la contraseña: "/></p:column>
-                            <p:column>
+                            <p:column styleClass="columimpar"><p:outputLabel for="pass2" value="Vuelva a introducir la contraseña: "/></p:column>
+                            <p:column styleClass="columimpar">
                                 <p:password id="pass2" required="true" value="#{empresaBackingBean.pass}">
                                 </p:password>
                             </p:column>

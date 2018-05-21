@@ -13,15 +13,15 @@
         <ui:composition template="./../WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                <h:form> 
-                    <p:growl autoUpdate="true" showDetail="true"/>
-                    <c:choose>
-                        <c:when test="#{empty ofertaClientBean.ofertas}">
-                            <p:panel header="Ofertas disponibles">
-                                <h:outputText value="No hay ofertas disponibles en este momento."/>
-                            </p:panel>
-                        </c:when>
-                        <c:otherwise>
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <c:choose>
+                    <c:when test="#{empty ofertaClientBean.ofertas}">
+                        <p:panel header="Ofertas disponibles">
+                            <h:outputText value="No hay ofertas disponibles en este momento."/>
+                        </p:panel>
+                    </c:when>
+                    <c:otherwise>
+                        <h:form>
                             <p:accordionPanel>
                                 <p:tab title="Filtros">
                                     <h:panelGrid>
@@ -41,7 +41,7 @@
                                                 </p:selectOneButton>
                                             </p:column>
                                         </p:row>
-                                        
+
                                         <p:row>
                                             <p:column>
                                                 <p:outputLabel for="tendencia"
@@ -49,14 +49,13 @@
                                             </p:column>
                                             <p:column>
                                                 <p:selectOneButton value="#{filtroBackingBean.direccion}"
-                                                                   id="tendencia"
-                                                                   required="true">
+                                                                   id="tendencia">
                                                     <f:selectItem itemLabel="Ascendente" itemValue="asc" />
                                                     <f:selectItem itemLabel="Descendente" itemValue="desc" />
                                                 </p:selectOneButton>
                                             </p:column>
                                         </p:row>
-                                        
+
                                         <p:row>
                                             <p:column colspan="2">
                                                 <p:commandButton action="candidatoIndex?faces-redirect=true" value="Filtrar"/>
@@ -65,7 +64,9 @@
                                     </h:panelGrid>
                                 </p:tab>
                             </p:accordionPanel>
+                        </h:form>
 
+                        <h:form>
                             <c:choose>
                                 <c:when test="#{filtroBackingBean.filtro eq 'nombre'}">
                                     <c:choose>
@@ -121,10 +122,10 @@
                                     <ezcomp:listaOfertasCandidato lista="#{ofertaClientBean.ofertas}"/>
                                 </c:otherwise>
                             </c:choose>
-                            
-                        </c:otherwise>
-                    </c:choose>
-                </h:form>
+                        </h:form>
+
+                    </c:otherwise>
+                </c:choose>
             </ui:define>
 
         </ui:composition>

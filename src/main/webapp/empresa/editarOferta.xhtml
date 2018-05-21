@@ -32,8 +32,8 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column><p:outputLabel for="descripcion" value="Descripción completa de la oferta:"/></p:column>
-                                <p:column>
+                                <p:column styleClass="columimpar"><p:outputLabel for="descripcion" value="Descripción completa de la oferta:"/></p:column>
+                                <p:column styleClass="columimpar">
                                     <p:inputTextarea value="#{editarOfertaBackingBean.descripcion}"
                                                      id="descripcion">
                                         <f:validateLength minimum="6" maximum="1024"/>
@@ -55,8 +55,8 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column><p:outputLabel for="puesto" value="Puesto de trabajo:"/></p:column>
-                                <p:column>
+                                <p:column styleClass="columimpar"><p:outputLabel for="puesto" value="Puesto de trabajo:"/></p:column>
+                                <p:column styleClass="columimpar">
                                     <p:inputText value="#{editarOfertaBackingBean.puestoTrabajo}"
                                                  id="puesto">
                                         <f:validateLength minimum="2" maximum="256"/>

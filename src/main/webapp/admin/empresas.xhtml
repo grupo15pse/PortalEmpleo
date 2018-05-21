@@ -32,56 +32,54 @@
                                                      icon="fa fa-plus"/>
                                 </f:facet>
 
-                                <h:panelGrid styleClass="tabla">
+                                <p:panelGrid styleClass="tabla">
 
-                                    <p:outputPanel>
-                                        <p:panelGrid>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel value="ID: "/></p:column>
-                                                <p:column><h:outputText value="#{empresa.usuarioId}"/></p:column>
-                                                <p:column rowspan="3">
-                                                    <p:outputLabel value="Número de ofertas: "/>
-                                                    <br/>
-                                                    <h:outputText value="#{usuarioFacadeREST.findOfertasSize(empresa.usuarioId)}"/>
-                                                </p:column>
-                                                <p:column rowspan="3">
-                                                    <p:commandButton action="#{empresaClientBean.deleteEmpresa(empresa)}"
-                                                                     icon="fa fa-trash"
-                                                                     >
-                                                        <p:confirm header="Confirmación" message="¿Estás seguro de querer borrar la empresa #{empresa.nombre}?" icon="fa fa-exclamation-triangle"/>
-                                                    </p:commandButton>
 
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                                        <p:commandButton value="Sí"
-                                                                         type="button"
-                                                                         styleClass="ui-confirmdialog-yes"
-                                                                         icon="fa fa-thumbs-up" />
-                                                        <p:commandButton value="No"
-                                                                         type="button"
-                                                                         styleClass="ui-confirmdialog-no"
-                                                                         icon="fa fa-thumbs-down" />
-                                                    </p:confirmDialog>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel value="ID: "/></p:column>
+                                        <p:column styleClass="columimpar"><h:outputText value="#{empresa.usuarioId}"/></p:column>
+                                        <p:column rowspan="3" styleClass="columpar">
+                                            <p:outputLabel value="Número de ofertas: "/>
+                                            <br/>
+                                            <h:outputText value="#{usuarioFacadeREST.findOfertasSize(empresa.usuarioId)}"/>
+                                        </p:column>
+                                        <p:column rowspan="3" styleClass="columimpar">
+                                            <p:commandButton action="#{empresaClientBean.deleteEmpresa(empresa)}"
+                                                             icon="fa fa-trash"
+                                                             >
+                                                <p:confirm header="Confirmación" message="¿Estás seguro de querer borrar la empresa #{empresa.nombre}?" icon="fa fa-exclamation-triangle"/>
+                                            </p:commandButton>
 
-                                                    <p:button icon="fa fa-pencil"
-                                                              outcome="editarEmpresa">
-                                                        <f:param name="empresa" value="#{empresa.usuarioId}" />
-                                                    </p:button>
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column><p:outputLabel value="Nombre: "/></p:column>
-                                                <p:column><h:outputText value="#{empresa.nombre}"/></p:column>
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                <p:commandButton value="Sí"
+                                                                 type="button"
+                                                                 styleClass="ui-confirmdialog-yes"
+                                                                 icon="fa fa-thumbs-up" />
+                                                <p:commandButton value="No"
+                                                                 type="button"
+                                                                 styleClass="ui-confirmdialog-no"
+                                                                 icon="fa fa-thumbs-down" />
+                                            </p:confirmDialog>
 
-                                            </p:row>
-                                            <p:row>
-                                                <p:column><p:outputLabel value="Correo electrónico: "/></p:column>
-                                                <p:column><h:outputText value="#{empresa.email}"/></p:column>
+                                            <p:button icon="fa fa-pencil"
+                                                      outcome="editarEmpresa">
+                                                <f:param name="empresa" value="#{empresa.usuarioId}" />
+                                            </p:button>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columpar"><p:outputLabel value="Nombre: "/></p:column>
+                                        <p:column styleClass="columpar"><h:outputText value="#{empresa.nombre}"/></p:column>
 
-                                            </p:row>
-                                        </p:panelGrid>
-                                    </p:outputPanel>
-                                </h:panelGrid>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel value="Correo electrónico: "/></p:column>
+                                        <p:column styleClass="columimpar"><h:outputText value="#{empresa.email}"/></p:column>
+
+                                    </p:row>
+
+                                </p:panelGrid>
                             </p:dataScroller>
                         </c:otherwise>
                     </c:choose>

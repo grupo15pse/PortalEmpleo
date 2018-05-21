@@ -30,48 +30,43 @@
                                     <p:commandButton type="button" value="More" icon="fa fa-plus"/>
                                 </f:facet>
 
-                                <h:panelGrid columns="2">
+                                <p:panelGrid styleClass="tabla">
+                                    <p:row>
+                                        <p:column styleClass="columpar"><p:outputLabel for="id" value="ID: "/></p:column>
+                                        <p:column styleClass="columpar"><h:outputText id="id" value="#{oferta.ofertaId}"/></p:column>
+                                    </p:row>
 
-                                    <p:outputPanel>
-                                        <p:panelGrid>
-                                            <p:row>
-                                                <p:column><p:outputLabel for="id" value="ID: "/></p:column>
-                                                <p:column><h:outputText id="id" value="#{oferta.ofertaId}"/></p:column>
-                                            </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                                        <p:column styleClass="columimpar"><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                                    </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                                                <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                                            </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columpar"><p:outputLabel for="desc" value="Descripción: "/></p:column>
+                                        <p:column styleClass="columpar"><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                                    </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="desc" value="Descripción: "/></p:column>
-                                                <p:column><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
-                                            </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
+                                        <p:column styleClass="columimpar"><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
+                                    </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                                                <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
-                                            </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columpar"><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
+                                        <p:column styleClass="columpar"><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
+                                    </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
-                                                <p:column><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
-                                            </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
+                                        <p:column styleClass="columimpar"><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
+                                    </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
-                                                <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
-                                            </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columpar"><p:outputLabel for="empresa" value="Empresa: "/></p:column>
+                                        <p:column styleClass="columpar"><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
+                                    </p:row>
 
-                                            <p:row>
-                                                <p:column><p:outputLabel for="empresa" value="Empresa: "/></p:column>
-                                                <p:column><h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/></p:column>
-                                            </p:row>
-
-                                        </p:panelGrid>
-                                    </p:outputPanel>
-                                </h:panelGrid>
+                                </p:panelGrid>
                             </p:dataScroller>
                         </c:otherwise>
                     </c:choose>

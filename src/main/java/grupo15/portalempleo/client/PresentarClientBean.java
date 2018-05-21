@@ -51,47 +51,54 @@ public class PresentarClientBean {
     }
 
     public void inscribirse(Oferta oferta, Usuario usuario) {
+
         String formacionCandidato = userEJB.getFormacionByUsuario(usuario.getUsuarioId());
 
-        switch (compareTo(formacionCandidato, oferta.getReqMinimos())) {
-            case 1: {
+        if (formacionCandidato != null) {
+            switch (compareTo(formacionCandidato, oferta.getReqMinimos())) {
+                case 1: {
 
-                if (epcb.comprobarPago(usuario)) {
-                    Presentar presentar = new Presentar();
-                    presentar.setPresentarPK(new PresentarPK(usuario.getUsuarioId(), oferta.getOfertaId()));
-                    target.request().post(Entity.entity(presentar, MediaType.APPLICATION_JSON));
+                    if (epcb.comprobarPago(usuario)) {
+                        Presentar presentar = new Presentar();
+                        presentar.setPresentarPK(new PresentarPK(usuario.getUsuarioId(), oferta.getOfertaId()));
+                        target.request().post(Entity.entity(presentar, MediaType.APPLICATION_JSON));
 
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    context.addMessage(null, new FacesMessage("Éxito", "Te has inscrito con éxito en la oferta " + oferta.getNombre()));
-                } else {
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    context.addMessage(null, new FacesMessage("Error", "No tienes fondos suficientes para inscribirte a la oferta " + oferta.getNombre()));
+                        FacesContext context = FacesContext.getCurrentInstance();
+                        context.addMessage(null, new FacesMessage("Éxito", "Te has inscrito con éxito en la oferta " + oferta.getNombre()));
+                    } else {
+                        FacesContext context = FacesContext.getCurrentInstance();
+                        context.addMessage(null, new FacesMessage("Error", "No tienes fondos suficientes para inscribirte a la oferta " + oferta.getNombre()));
+                    }
+                    break;
                 }
-                break;
+                case -1: {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage("Error", "No dispones de la formación necesaria para inscribirte a la oferta " + oferta.getNombre()));
+                    break;
+                }
+                default: {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage("Error", "ERROOOOR"));
+                    break;
+                }
             }
-            case -1: {
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage("Error", "No dispones de la formación necesaria para inscribirte a la oferta " + oferta.getNombre()));
-                break;
-            }
-            default: {
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage("Error", "ERROOOOR"));
-                break;
-            }
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error", "Debes ponerte en contacto con el administrador"));
         }
+
     }
 
     public List<Oferta> getOfertasInscrito(Usuario user) {
         return userEJB.findOfertasByCandidato(user);
 
     }
-    
+
     public void borrarInscripciones(Usuario user, Oferta oferta) {
-        userEJB.borrarInscrito(user.getUsuarioId(),oferta.getOfertaId());
+        userEJB.borrarInscrito(user.getUsuarioId(), oferta.getOfertaId());
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Error", "Ya no estás inscrito en la oferta " + oferta.getNombre()));
-    } 
+    }
 
     public boolean isInscrito(Usuario user, Oferta oferta) {
         List<Oferta> array = getOfertasInscrito(user);

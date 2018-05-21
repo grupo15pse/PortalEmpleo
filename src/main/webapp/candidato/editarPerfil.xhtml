@@ -26,8 +26,8 @@
                         </p:row>
 
                         <p:row>
-                            <p:column><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
-                            <p:column>
+                            <p:column styleClass="columimpar"><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
+                            <p:column styleClass="columimpar">
                                 <p:calendar id="fecha" value="#{editarPerfilBakingBean.fecha}"
                                             pattern="dd-MM-yyyy" mask="true" 
                                             effect="fold"
@@ -48,8 +48,8 @@
                         </p:row>
 
                         <p:row>
-                            <p:column><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
-                            <p:column>
+                            <p:column styleClass="columimpar"><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
+                            <p:column styleClass="columimpar">
                                 <p:inputNumber value="#{editarPerfilBakingBean.tarjeta}"
                                                maxlength="16"
                                                decimalPlaces="0" thousandSeparator=""

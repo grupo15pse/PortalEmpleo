@@ -95,8 +95,17 @@ public class UserEJB {
 
         query.setParameter("candidato", userId);
 
-        Formacion formacion = query.getSingleResult();
-        return formacion.getFormacionPK().getFormacion();
+        Formacion formacion = null;
+        
+        String resultado = null;
+        
+        try {
+            formacion = query.getSingleResult();
+            resultado = formacion.getFormacionPK().getFormacion();
+        }catch (Exception e) {
+            
+        }
+        return resultado;
     }
 
     public List<Usuario> findUsuariosByOferta(int ofertaId) {
