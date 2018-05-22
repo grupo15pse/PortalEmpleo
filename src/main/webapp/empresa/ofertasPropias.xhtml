@@ -59,10 +59,9 @@
                                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-thumbs-down" />
                                         </p:confirmDialog>
 
-                                        <p:button icon="fa fa-pencil"
-                                                  outcome="editarOferta">
-                                            <f:param name="oferta" value="#{oferta.ofertaId}" />
-                                        </p:button>
+                                        <p:commandButton icon="fa fa-pencil"
+                                                         action="#{ofertaClientBean.traspasarDatos(oferta.ofertaId)}">
+                                        </p:commandButton>
                                     </p:column>
                                 </p:row>
 

@@ -178,6 +178,18 @@ public class OfertaClientBean {
         return "ofertasPropias";
     }
     
+    public String traspasarDatos(int ofertaId) {
+        eobb.setOfertaEditar(ofertaId);
+        Oferta oferta = userEJB.findOferta(ofertaId);
+        
+        eobb.setDescripcion(oferta.getDescripcion());
+        eobb.setNombre(oferta.getNombre());
+        eobb.setPuestoTrabajo(oferta.getPuestoTrabajo());
+        eobb.setReqMinimos(oferta.getDescripcion());
+        
+        return "editarOferta";
+    }
+    
     public int getNumeroCandidatos(Oferta oferta) {
         return userEJB.getNumeroCandidatos(oferta);
     }
