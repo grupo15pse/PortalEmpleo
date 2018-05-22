@@ -43,7 +43,12 @@
                             <p:column>
 
                                 <p:inputText value="#{editarPerfilBakingBean.tel}"
-                                               maxlength="9" id="tel"/>
+                                             maxlength="9" id="tel">
+                                    <f:validateLength maximum="9" minimum="9"/>
+                                    <f:convertNumber integerOnly="true"
+                                                     maxIntegerDigits="9"
+                                                     minIntegerDigits="9"/>
+                                </p:inputText>
                             </p:column>
                         </p:row>
 

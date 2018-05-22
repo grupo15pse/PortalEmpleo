@@ -12,9 +12,12 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -45,14 +48,27 @@ public class EstadoPagoClientBean {
     }
 
     public boolean comprobarPago(Usuario user) {
-        if (user.getEmail().equals("grupo15si@uva.es")) {
-            target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios/grupo15si@uva.es");
-        } else {
-            target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios/grupo15no@uva.es");
-        }
 
-        EntidadPago entidadPago = target.register(EntidadPagoReader.class).request().get(EntidadPago.class);
-        return entidadPago.getEstadoPago().equals("si");
+        if (user.getEmail().equals("grupo15si@uva.es") || user.getEmail().equals("grupo15no@uva.es")) {
+            target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios");
+            EntidadPago entidadPago = target.register(EntidadPagoReader.class)
+                    .path("{email}")
+                    .resolveTemplate("email", user.getEmail())
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(EntidadPago.class);
+
+            if (entidadPago.getEstadoPago().equals("si")) {
+                return true;
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage("Error", "No tienes fondos suficientes para inscribirte a la oferta"));
+                return false;
+            }
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error", "No estás autorizado para inscribirte en ofertas"));
+            return false;
+        }
     }
 
 }

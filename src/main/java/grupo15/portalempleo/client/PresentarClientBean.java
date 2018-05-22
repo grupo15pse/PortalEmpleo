@@ -65,9 +65,6 @@ public class PresentarClientBean {
 
                         FacesContext context = FacesContext.getCurrentInstance();
                         context.addMessage(null, new FacesMessage("Éxito", "Te has inscrito con éxito en la oferta " + oferta.getNombre()));
-                    } else {
-                        FacesContext context = FacesContext.getCurrentInstance();
-                        context.addMessage(null, new FacesMessage("Error", "No tienes fondos suficientes para inscribirte a la oferta " + oferta.getNombre()));
                     }
                     break;
                 }
