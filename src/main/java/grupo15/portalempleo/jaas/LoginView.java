@@ -11,6 +11,7 @@ import grupo15.portalempleo.entities.Usuario;
 import grupo15.portalempleo.rest.FormacionFacadeREST;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -79,7 +80,7 @@ public class LoginView implements Serializable {
         return "/index?faces-redirect=true";
     }
     
-    public void updateCandidato() {
+    public String updateCandidato() {
         
         if(epbb.getFecha() != null) {
             user.setFechaNacimiento(epbb.getFecha());
@@ -93,14 +94,16 @@ public class LoginView implements Serializable {
             user.setTarjeta(epbb.getTarjeta());
         }
         
-        if(epbb.getTel() == 0) {
-            user.setTelefono(Integer.toString(epbb.getTel()));
+        if(epbb.getTel() != null) {
+            user.setTelefono(epbb.getTel());
         }
 
         userEJB.updateUsuario(user);
         
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito",  "El candidato " + user.getNombre() + " ha sido actualizado."));
+        
+        return "perfil";
     }
     
     public String deleteUsuario() {
@@ -117,10 +120,26 @@ public class LoginView implements Serializable {
         return formacion.getFormacionPK().getFormacion();
     }
     
-    public String fechaHoy() {
-        Date date = new Date();
+    public String fechaHace16Anos() {
+        Date fechaHace16 = null;
+        Calendar hoy = Calendar.getInstance();
+        hoy.add(Calendar.YEAR, -16);
+        fechaHace16 = hoy.getTime();
+        
+        
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        return format.format(date);
+        return format.format(fechaHace16);
+    }
+    
+    public String fechaHace65Anos() {
+        Date fechaHace65 = null;
+        Calendar hoy = Calendar.getInstance();
+        hoy.add(Calendar.YEAR, -65);
+        fechaHace65 = hoy.getTime();
+        
+        
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(fechaHace65);
     }
 
     public String getEmail() {

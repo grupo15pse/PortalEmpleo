@@ -57,7 +57,7 @@ public class EmpresaClientBean {
         client.close();
     }
 
-    public void addEmpresa() {
+    public String addEmpresa() {
         Usuario empresa = new Usuario();
         empresa.setTipo("Empresa");
         empresa.setNombre(ebb.getNombre());
@@ -76,6 +76,8 @@ public class EmpresaClientBean {
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito", "La empresa " + empresa.getNombre() + " ha sido enviada."));
+        
+        return "empresas";
     }
 
     public Usuario[] getEmpresas() {
@@ -99,19 +101,23 @@ public class EmpresaClientBean {
         return empresa;
     }
 
-    public void deleteEmpresa(Usuario empresa) {
+    public String deleteEmpresa(Usuario empresa) {
         String nombreEmpresa = empresa.getNombre();
 
-        target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
+        /*target = client.target("http://localhost:8080/PortalEmpleo/webresources/usuario");
         target.path("{id}")
                 .resolveTemplate("id", empresa.getUsuarioId())
                 .request()
-                .delete();
+                .delete();*/
+        
+        userEJB.deleteUsuario(empresa);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito", "La empresa " + nombreEmpresa + " ha sido eliminada."));
+        
+        return "empresas";
     }
 
-    public void updateEmpresa() {
+    public String updateEmpresa() {
 
         Usuario empresa = userEJB.findById(eebb.getEmpresaEditar());
 
@@ -123,5 +129,7 @@ public class EmpresaClientBean {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Éxito", "La empresa " + empresa.getNombre() + " ha sido actualizada."));
         }
+        
+        return "empresas";
     }
 }

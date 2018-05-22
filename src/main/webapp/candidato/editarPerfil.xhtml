@@ -28,10 +28,13 @@
                         <p:row>
                             <p:column styleClass="columimpar"><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
                             <p:column styleClass="columimpar">
-                                <p:calendar id="fecha" value="#{editarPerfilBakingBean.fecha}"
-                                            pattern="dd-MM-yyyy" mask="true" 
-                                            effect="fold"
-                                            maxdate="#{loginView.fechaHoy()}"/>
+
+                                <p:calendar id="fecha" value="#{editarPerfilBakingBean.fecha}" pattern="dd-MM-yyyy" mask="true" 
+                                            effect="fold" maxdate="#{loginView.fechaHace16Anos()}"
+                                            mindate="#{loginView.fechaHace65Anos()}"
+                                            navigator="true"
+                                            locale="es_ES"
+                                            required="true"/>
                             </p:column>
                         </p:row>
 
@@ -39,26 +42,28 @@
                             <p:column><p:outputLabel for="tel" value="Teléfono: "/></p:column>
                             <p:column>
 
-                                <p:inputNumber value="#{editarPerfilBakingBean.tel}"
-                                               thousandSeparator=""
-                                               decimalPlaces="0"
-                                               maxlength="9" maxValue="799999999"
-                                               id="tel"/>
+                                <p:inputText value="#{editarPerfilBakingBean.tel}"
+                                               maxlength="9" id="tel"/>
                             </p:column>
                         </p:row>
 
                         <p:row>
                             <p:column styleClass="columimpar"><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
                             <p:column styleClass="columimpar">
-                                <p:inputNumber value="#{editarPerfilBakingBean.tarjeta}"
-                                               maxlength="16"
-                                               decimalPlaces="0" thousandSeparator=""
-                                               id="tarjeta"/>
+                                <p:inputText value="#{editarPerfilBakingBean.tarjeta}"
+                                             required="true"
+                                             id="tarjeta" 
+                                             converterMessage="Debe ser un número de 16 cifras">
+                                    <f:validateLength maximum="16" minimum="16"/>
+                                    <f:convertNumber integerOnly="true"
+                                                     maxIntegerDigits="16"
+                                                     minIntegerDigits="16"/>
+                                </p:inputText>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:commandButton action="#{loginView.updateCandidato}" value="Actualizar valores"
+                                <p:commandButton action="#{loginView.updateCandidato()}" value="Actualizar valores"
                                                  icon="fa fa-save"
                                                  update="grid"/>
                                 <p:button outcome="perfil" value="Volver"

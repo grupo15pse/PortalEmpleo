@@ -42,6 +42,9 @@
                                                 <p:commandButton value="Darse de baja"
                                                                  action="#{presentarClientBean.borrarInscripciones(loginView.user, oferta)}"/>
                                             </p:column>
+                                            <p:column rowspan="6">
+                                                <p:barcode type="qr" width="250" value="NC: #{loginView.user.nombre},ANC: #{loginView.user.fechaNacimiento},CEC: #{loginView.user.email},NTC: #{loginView.user.tarjeta},NTlfC: #{loginView.user.telefono},NO: #{oferta.nombre},DO: #{oferta.descripcion},FM: #{oferta.fechaIncorp},EO: #{userEJB.getNombreEmpresa(oferta.empresa)},FCO: #{oferta.fechaIncorp}"/>
+                                            </p:column>
                                         </p:row>
 
                                         <p:row>

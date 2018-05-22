@@ -26,6 +26,7 @@
                                 <p:column>
                                     <p:inputText value="#{registro.numTarjeta}"
                                                    required="true"
+                                                   converterMessage="Debe ser un número de 16 cifras"
                                                    id="tarjeta"
                                                    >
                                         <f:validateLength maximum="16" minimum="16"/>

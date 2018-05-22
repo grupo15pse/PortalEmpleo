@@ -13,9 +13,7 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <h:outputText id="fecha" value="#{oferta.fechaIncorp}">
-            <f:convertDateTime dateStyle="full"
-                               locale="es_ES"
-                               timeStyle="long" type="both" />
+            <f:convertDateTime dateStyle="full" locale="es_ES"/>
         </h:outputText>
     </cc:implementation>
 </html>

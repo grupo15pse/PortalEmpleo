@@ -16,57 +16,63 @@
                 <f:metadata>
                     <f:viewParam name="oferta" value="#{ofertaBackingBean.verCandidatos}" />
                 </f:metadata>
-                
-                <c:choose>
-                    <c:when test="#{empty ofertaClientBean.usuariosByOferta}">
-                        <p:panel header="Candidatos inscritos">
-                            <h:outputText value="No hay candidatos disponibles en este momento."/>
-                        </p:panel>
-                    </c:when>
-                    <c:otherwise>
-                        <p:dataScroller value="#{ofertaClientBean.usuariosByOferta}"
-                                        var="usuario" chunkSize="10">
-                            <f:facet name="header">
-                                Candidatos inscritos a la oferta
-                            </f:facet>
 
-                            <f:facet name="loader">
-                                <p:commandButton type="button" value="More"
-                                                 icon="fa fa-plus"/>
-                            </f:facet>
+                <h:form>
+                    <c:choose>
+                        <c:when test="#{empty ofertaClientBean.usuariosByOferta}">
+                            <p:panel header="Candidatos inscritos">
+                                <h:outputText value="No hay candidatos disponibles en este momento."/>
+                            </p:panel>
+                        </c:when>
+                        <c:otherwise>
+                            <p:dataScroller value="#{ofertaClientBean.usuariosByOferta}"
+                                            var="usuario" chunkSize="10">
+                                <f:facet name="header">
+                                    Candidatos inscritos a la oferta
+                                </f:facet>
 
-                            <p:panelGrid styleClass="tabla">
-                                <p:row>
-                                    <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                                    <p:column><h:outputText id="nombre" value="#{usuario.nombre}"/></p:column>
-                                    <p:column rowspan="6" styleClass="columimpar">
-                                        <a href="mailto:#{usuario.email}">Contactar</a>
-                                    </p:column>
-                                </p:row>
+                                <f:facet name="loader">
+                                    <p:commandButton type="button" value="More"
+                                                     icon="fa fa-plus"/>
+                                </f:facet>
 
-                                <p:row>
-                                    <p:column styleClass="columimpar"><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
-                                    <p:column styleClass="columimpar"><h:outputText id="email" value="#{usuario.email}"/></p:column>
-                                </p:row>
+                                <p:panelGrid styleClass="tabla">
+                                    <p:row>
+                                        <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                                        <p:column><h:outputText id="nombre" value="#{usuario.nombre}"/></p:column>
+                                        <p:column rowspan="6" styleClass="columimpar">
+                                            <a href="mailto:#{usuario.email}">Contactar</a>
+                                        </p:column>
+                                    </p:row>
 
-                                <p:row>
-                                    <p:column><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
-                                    <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{usuario.fechaNacimiento}"/></p:column>
-                                </p:row>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel for="email" value="Correo electrónico: "/></p:column>
+                                        <p:column styleClass="columimpar"><h:outputText id="email" value="#{usuario.email}"/></p:column>
+                                    </p:row>
 
-                                <p:row>
-                                    <p:column styleClass="columimpar"><p:outputLabel for="tel" value="Teléfono: "/></p:column>
-                                    <p:column styleClass="columimpar"><h:outputText id="tel" value="#{usuario.telefono}"/></p:column>
-                                </p:row>
+                                    <p:row>
+                                        <p:column><p:outputLabel for="fecha" value="Fecha de nacimiento: "/></p:column>
+                                        <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{usuario.fechaNacimiento}"/></p:column>
+                                    </p:row>
 
-                                <p:row>
-                                    <p:column styleClass="columimpar"><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
-                                    <p:column styleClass="columimpar"><h:outputText id="tarjeta" value="#{usuario.tarjeta}"/></p:column>
-                                </p:row>
-                            </p:panelGrid>
-                        </p:dataScroller>
-                    </c:otherwise>
-                </c:choose>
+                                    <p:row>
+                                        <p:column styleClass="columimpar"><p:outputLabel for="tel" value="Teléfono: "/></p:column>
+                                        <p:column styleClass="columimpar"><h:outputText id="tel" value="#{usuario.telefono}"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel for="tarjeta" value="Número de tarjeta: "/></p:column>
+                                        <p:column><h:outputText id="tarjeta" value="#{usuario.tarjeta}"/></p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:dataScroller>
+                        </c:otherwise>
+                    </c:choose>
+                </h:form>
+
+                <h:form>
+                    <p:commandButton value="Volver" icon="fa fa-undo" action="ofertasPropias"/>
+                </h:form>
             </ui:define>
 
         </ui:composition>

@@ -37,6 +37,9 @@
                                 <p:row>
                                     <p:column styleClass="columpar"><p:outputLabel for="nombre" value="Nombre: "/></p:column>
                                     <p:column styleClass="columpar"><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                                    <p:column rowspan="6">
+                                        <h:outputText value="Inscritos: #{ofertaClientBean.getNumeroCandidatos(oferta)}"/>
+                                    </p:column>
                                     <p:column rowspan="6" styleClass="columimpar">
                                         <p:button outcome="candidatos"
                                                   value="Ver candidatos"

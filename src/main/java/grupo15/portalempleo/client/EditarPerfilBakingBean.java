@@ -22,7 +22,7 @@ public class EditarPerfilBakingBean implements Serializable {
     private String nombre,correo;
     private Date fecha;
     private BigInteger tarjeta;
-    private int tel;
+    private String tel;
 
     /**
      * Creates a new instance of EditarPerfilBakingBean
@@ -62,11 +62,11 @@ public class EditarPerfilBakingBean implements Serializable {
         this.tarjeta = tarjeta;
     }
 
-    public int getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public void setTel(int tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
     

@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -26,6 +27,7 @@ import javax.ws.rs.PathParam;
  *
  * @author Admin
  */
+@Named
 @Stateless
 public class UserEJB {
 
@@ -60,12 +62,13 @@ public class UserEJB {
     }
 
     public void deleteUsuario(Usuario user) {
-        Query query = em.createQuery("DELETE FROM Usuario u WHERE u.usuarioId= :usuarioId");
+        Query query = em.createQuery("DELETE FROM Usuario u WHERE u.usuarioId=:usuarioId");
         query.setParameter("usuarioId", user.getUsuarioId());
         query.executeUpdate();
 
-        query = em.createQuery("DELETE FROM Grupo g WHERE g.email= :email");
+        query = em.createQuery("DELETE FROM Grupo g WHERE g.email=:email");
         query.setParameter("email", user.getEmail());
+        query.executeUpdate();
     }
 
     public Usuario findByEmail(String email) {
@@ -268,5 +271,20 @@ public class UserEJB {
         }
 
         return resultado;
+    }
+    
+    public int getNumeroCandidatos(Oferta oferta) {
+        TypedQuery<Presentar> query = em.createNamedQuery("Presentar.findByOferta",Presentar.class);
+        
+        query.setParameter("oferta", oferta.getOfertaId());
+        
+        List<Presentar> lista = query.getResultList();
+        
+        return lista.size();
+    }
+    
+    public String getNombreEmpresa(int empresaId) {
+        Usuario empresa = findById(empresaId);
+        return empresa.getNombre();
     }
 }

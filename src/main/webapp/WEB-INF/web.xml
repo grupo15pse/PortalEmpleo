@@ -60,7 +60,7 @@
         <web-resource-collection>
             <web-resource-name>Chat de candidatos</web-resource-name>
             <description/>
-            <url-pattern>/faces/chat/chatroom.xhtml</url-pattern>
+            <url-pattern>/faces/chat/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
@@ -81,7 +81,7 @@
         <web-resource-collection>
             <web-resource-name>Chat de empresas</web-resource-name>
             <description/>
-            <url-pattern>/faces/chat/chatroom.xhtml</url-pattern>
+            <url-pattern>/faces/chat/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -67,14 +69,22 @@ public class Registro implements Serializable {
         
 
         clientBean.addCandidato(user,grupo, formacionAux);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Éxito", "El usuario " + user.getNombre() + " ha sido creado."));
 
         return "goHome";
     }
 
-    public String fechaHoy() {
-        Date date = new Date();
+    public String fechaHace16Anos() {
+        Date fechaHace16 = null;
+        Calendar hoy = Calendar.getInstance();
+        hoy.add(Calendar.YEAR, -16);
+        fechaHace16 = hoy.getTime();
+        
+        
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        return format.format(date);
+        return format.format(fechaHace16);
     }
     
     public String fechaHace65Anos() {

@@ -47,6 +47,7 @@
 
                     <c:choose>
                         <c:when test="#{request.isUserInRole('admin')}">
+                            <h:outputText value="Hola, #{loginView.user.nombre}"/>
                             <p:menu styleClass="menu">
                                 <p:submenu label="Ofertas">
                                     <p:menuitem value="Ver ofertas" outcome="/faces/admin/adminIndex.xhtml"
@@ -69,13 +70,14 @@
                         </c:when>
 
                         <c:when test="#{request.isUserInRole('empresa')}">
+                            <h:outputText value="Hola, #{loginView.user.nombre}"/>
                             <p:menu rendered="#{loginView.user.tipo.equalsIgnoreCase('empresa')}" styleClass="menu">
                                 <p:submenu label="Ofertas">
                                     <p:menuitem value="Ver ofertas" outcome="/faces/empresa/empresaIndex.xhtml"
                                                 icon="fa fa-home"/>
                                     <p:menuitem value="Ver ofertas propias" outcome="/faces/empresa/ofertasPropias.xhtml"
                                                 icon="fa fa-eye"/>
-                                    <p:menuitem value="Crear oferta" action="crearOferta?faces-redirect=true"
+                                    <p:menuitem value="Crear oferta" outcome="/faces/empresa/crearOferta.xhtml"
                                                 icon="fa fa-plus"/>
                                 </p:submenu>
 

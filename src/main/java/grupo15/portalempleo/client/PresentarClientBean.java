@@ -50,7 +50,7 @@ public class PresentarClientBean {
     public PresentarClientBean() {
     }
 
-    public void inscribirse(Oferta oferta, Usuario usuario) {
+    public String inscribirse(Oferta oferta, Usuario usuario) {
 
         String formacionCandidato = userEJB.getFormacionByUsuario(usuario.getUsuarioId());
 
@@ -86,6 +86,8 @@ public class PresentarClientBean {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Error", "Debes ponerte en contacto con el administrador"));
         }
+        
+        return "candidatoIndex";
 
     }
 
@@ -94,10 +96,12 @@ public class PresentarClientBean {
 
     }
 
-    public void borrarInscripciones(Usuario user, Oferta oferta) {
+    public String borrarInscripciones(Usuario user, Oferta oferta) {
         userEJB.borrarInscrito(user.getUsuarioId(), oferta.getOfertaId());
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Error", "Ya no estás inscrito en la oferta " + oferta.getNombre()));
+        
+        return "ofertasInscrito";
     }
 
     public boolean isInscrito(Usuario user, Oferta oferta) {

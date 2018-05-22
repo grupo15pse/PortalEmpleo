@@ -63,7 +63,7 @@ public class OfertaClientBean {
         client.close();
     }
     
-    public void addOferta(int empresaId) {
+    public String addOferta(int empresaId) {
         
         Oferta oferta = new Oferta();
         oferta.setDescripcion(obb.getDescripcion());
@@ -78,6 +78,8 @@ public class OfertaClientBean {
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito", "La oferta " + oferta.getNombre() + " ha sido enviada."));
+        
+        return "empresaIndex";
     }
     
     public List<Oferta> getOfertas() {
@@ -118,7 +120,7 @@ public class OfertaClientBean {
         return userEJB.getOfertasOrderByFecha(direccion);
     }
     
-    public void deleteOferta(Oferta oferta) {
+    public String deleteOferta(Oferta oferta) {
         String nombreOferta = oferta.getNombre();
 
         target = client.target("http://localhost:8080/PortalEmpleo/webresources/oferta");
@@ -130,6 +132,8 @@ public class OfertaClientBean {
         userEJB.borrarInscritos(oferta.getOfertaId());
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito", "La oferta " + nombreOferta + " ha sido eliminada."));
+        
+        return "ofertasPropias";
     }
     
     public Oferta[] getOfertasPropias(int empresaId) {
@@ -147,7 +151,7 @@ public class OfertaClientBean {
         return userEJB.findUsuariosByOferta(obb.getVerCandidatos());
     }
     
-    public void updateOferta() {
+    public String updateOferta() {
         Oferta oferta = userEJB.findOferta(eobb.getOfertaEditar());
         
         if(eobb.getDescripcion() != null) {
@@ -170,5 +174,11 @@ public class OfertaClientBean {
         
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Éxito",  "La oferta " + oferta.getNombre() + " ha sido actualizada."));
+        
+        return "ofertasPropias";
+    }
+    
+    public int getNumeroCandidatos(Oferta oferta) {
+        return userEJB.getNumeroCandidatos(oferta);
     }
 }

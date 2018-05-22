@@ -5,7 +5,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -13,56 +14,70 @@
 
             <ui:define name="content">
 
-                <p:dataScroller value="#{buscadorClientBean.buscarOfertas()}" 
-                                var="oferta" chunkSize="10">
+                <h:form>
+                    <c:choose>
+                        <c:when test="#{empty buscadorClientBean.buscarOfertas()}">
 
-                    <f:facet name="header">
-                        Baje para ver más ofertas
-                    </f:facet>
+                            <p:panel header="Error en la búsqueda">
+                                No se han encontrado resultados para la búsqueda #{buscadorBackingBean.busqueda}
+                            </p:panel>
+                        </c:when>
 
-                    <f:facet name="loader">
-                        <p:commandButton type="button" value="More" icon="fa fa-plus"/>
-                    </f:facet>
-                    
-                    <p:outputPanel>
+                        <c:otherwise>
+                            <p:dataScroller value="#{buscadorClientBean.buscarOfertas()}" 
+                                            var="oferta" chunkSize="10">
+
+                                <f:facet name="header">
+                                    Baje para ver más ofertas
+                                </f:facet>
+
+                                <f:facet name="loader">
+                                    <p:commandButton type="button" value="More" icon="fa fa-plus"/>
+                                </f:facet>
+
+                                <p:outputPanel>
 
 
-                            <p:panelGrid class="tabla" columnClasses="columna">
+                                    <p:panelGrid class="tabla" columnClasses="columna">
 
-                                <p:row>
-                                    <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
-                                    <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
-                                    <p:column rowspan="5" styleClass="columimpar">
+                                        <p:row>
+                                            <p:column><p:outputLabel for="nombre" value="Nombre: "/></p:column>
+                                            <p:column><h:outputText id="nombre" value="#{oferta.nombre}"/></p:column>
+                                            <p:column rowspan="5" styleClass="columimpar">
                                                 <p:outputLabel for="empresa" value="Empresa: "/>
                                                 <br/>
                                                 <h:outputText id="empresa" value="#{usuarioFacadeREST.find(oferta.empresa).nombre}"/>
                                             </p:column>
-                                </p:row>
+                                        </p:row>
 
-                                <p:row>
-                                    <p:column styleClass="columimpar"><p:outputLabel for="desc" value="Descripción: "/></p:column>
-                                    <p:column styleClass="columimpar"><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
-                                </p:row>
+                                        <p:row>
+                                            <p:column styleClass="columimpar"><p:outputLabel for="desc" value="Descripción: "/></p:column>
+                                            <p:column styleClass="columimpar"><h:outputText id="desc" value="#{oferta.descripcion}"/></p:column>
+                                        </p:row>
 
-                                <p:row>
-                                    <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
-                                    <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
-                                </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="fecha" value="Fecha de incorporación: "/></p:column>
+                                            <p:column><ezcomp:mostrarFecha id="fecha" fechaMostrar="#{oferta.fechaIncorp}"/></p:column>
+                                        </p:row>
 
-                                <p:row>
-                                    <p:column styleClass="columimpar"><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
-                                    <p:column styleClass="columimpar"><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
-                                </p:row>
+                                        <p:row>
+                                            <p:column styleClass="columimpar"><p:outputLabel for="req" value="Requisitos mínimos: "/></p:column>
+                                            <p:column styleClass="columimpar"><h:outputText id="req" value="#{oferta.reqMinimos}"/></p:column>
+                                        </p:row>
 
-                                <p:row>
-                                    <p:column styleClass="columimpar"><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
-                                    <p:column styleClass="columimpar"><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
-                                </p:row>
+                                        <p:row>
+                                            <p:column><p:outputLabel for="puesto" value="Puesto de trabajo: "/></p:column>
+                                            <p:column><h:outputText id="puesto" value="#{oferta.puestoTrabajo}"/></p:column>
+                                        </p:row>
 
-                            </p:panelGrid>
-                        </p:outputPanel>
+                                    </p:panelGrid>
+                                </p:outputPanel>
 
-                </p:dataScroller>
+                            </p:dataScroller>
+                        </c:otherwise>
+
+                    </c:choose>
+                </h:form>
 
             </ui:define>
 
