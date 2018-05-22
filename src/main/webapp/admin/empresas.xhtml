@@ -62,10 +62,9 @@
                                                                  icon="fa fa-thumbs-down" />
                                             </p:confirmDialog>
 
-                                            <p:button icon="fa fa-pencil"
-                                                      outcome="editarEmpresa">
-                                                <f:param name="empresa" value="#{empresa.usuarioId}" />
-                                            </p:button>
+                                            <p:commandButton icon="fa fa-pencil"
+                                                             action="#{empresaClientBean.traspasarDatos(empresa.usuarioId)}"> 
+                                            </p:commandButton>
                                         </p:column>
                                     </p:row>
                                     <p:row>

@@ -115,6 +115,16 @@ public class LoginView implements Serializable {
         return logout();
     }
     
+    public String traspasarDatos() {
+        epbb.setCorreo(user.getEmail());
+        epbb.setFecha(user.getFechaNacimiento());
+        epbb.setNombre(user.getNombre());
+        epbb.setTarjeta(user.getTarjeta());
+        epbb.setTel(user.getTelefono());
+        
+        return "editarPerfil";
+    }
+    
     public String getFormacion() {
         Formacion formacion = formacionFacadeREST.findFormacionByCandidato(user.getUsuarioId()).get(0);
         return formacion.getFormacionPK().getFormacion();

@@ -132,4 +132,14 @@ public class EmpresaClientBean {
         
         return "empresas";
     }
+    
+    public String traspasarDatos(int empresaId) {
+        eebb.setEmpresaEditar(empresaId);
+        
+        Usuario empresa = userEJB.findById(empresaId);
+        
+        eebb.setNombre(empresa.getNombre());
+        
+        return "editarEmpresa";
+    }
 }
