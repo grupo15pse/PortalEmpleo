@@ -69,6 +69,10 @@ public class UserEJB {
         query = em.createQuery("DELETE FROM Grupo g WHERE g.email=:email");
         query.setParameter("email", user.getEmail());
         query.executeUpdate();
+        
+        query = em.createQuery("DELETE FROM Formacion f WHERE f.formacionPK.candidato=:usuarioId");
+        query.setParameter("usuarioId", user.getUsuarioId());
+        query.executeUpdate();
     }
 
     public Usuario findByEmail(String email) {
