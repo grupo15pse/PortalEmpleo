@@ -8,6 +8,8 @@ package grupo15.portalempleo.client;
 import grupo15.portalempleo.entities.EntidadPago;
 import grupo15.portalempleo.entities.Usuario;
 import grupo15.portalempleo.json.EntidadPagoReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Named;
@@ -49,7 +51,11 @@ public class EstadoPagoClientBean {
 
     public boolean comprobarPago(Usuario user) {
 
-        if (user.getEmail().equals("grupo15si@uva.es") || user.getEmail().equals("grupo15no@uva.es")) {
+        Pattern p = Pattern.compile("grupo[12][1-9][sn][io]@uva.es");
+        Matcher m = p.matcher(user.getEmail());
+        boolean b = m.matches();
+
+        if (b) {
             target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios");
             EntidadPago entidadPago = target.register(EntidadPagoReader.class)
                     .path("{email}")
