@@ -56,23 +56,31 @@ public class EstadoPagoClientBean {
         boolean b = m.matches();
 
         if (b) {
-            target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios");
-            EntidadPago entidadPago = target.register(EntidadPagoReader.class)
-                    .path("{email}")
-                    .resolveTemplate("email", user.getEmail())
-                    .request(MediaType.APPLICATION_JSON)
-                    .get(EntidadPago.class);
+            EntidadPago entidadPago = null;
+            try {
+                target = client.target("http://valdavia.infor.uva.es:8080/pagos/webresources/usuarios");
+                entidadPago = target.register(EntidadPagoReader.class)
+                        .path("{email}")
+                        .resolveTemplate("email", user.getEmail())
+                        .request(MediaType.APPLICATION_JSON)
+                        .get(EntidadPago.class);
 
-            if (entidadPago.getEstadoPago().equals("si")) {
-                return true;
-            } else {
+                if (entidadPago.getEstadoPago().equals("si")) {
+                    return true;
+                } else {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage("Error", "No tienes fondos suficientes para inscribirte a la oferta."));
+                    return false;
+                }
+            } catch (Exception e) {
                 FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage("Error", "No tienes fondos suficientes para inscribirte a la oferta"));
+                context.addMessage(null, new FacesMessage("Error", "Pruebe con un correo cuyo número de grupo no esté entre 26 y 29, ambos incluidos."));
                 return false;
             }
+
         } else {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Error", "No estás autorizado para inscribirte en ofertas"));
+            context.addMessage(null, new FacesMessage("Error", "No estás autorizado para inscribirte en ofertas."));
             return false;
         }
     }
