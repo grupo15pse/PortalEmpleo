@@ -69,7 +69,29 @@
     </dependencies>
 
     <build>
+        
         <plugins>
+            <!--Desde aquí-->
+            <plugin>                          <!-- Used for local debugging -->
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty.maven.plugin}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>${appengine.maven.plugin}</version>
+        <configuration>
+          <!-- deploy configuration -->
+<!--
+          <deploy.promote>true</deploy.promote>                           <!~~ DEFAULT value ~~>
+          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!~~ DEFAULT value ~~>
+ -->
+        </configuration>
+      </plugin>
+            <!--Hasta aquí-->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
